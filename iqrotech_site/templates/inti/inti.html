@@ -137,10 +137,10 @@
 </tbody>
 </table>
 <div id="teksLatin"></div>
-<div class="section-title">
+<!-- <div class="section-title">
   <h4 id="hasilBacaanJudul" style="display: none;">Hasil Bacaan Anda</h4>
   <div id="hasilBacaan"></div>
-</div>
+</div> -->
 
 <!-- <div class="section-title">
   <h4 id="suaraRekomendasiJudul" style="display: none;">Rekomendasi Suara Bacaan {nama surat sesuai yang dipilih pengguna}</h4>
@@ -151,10 +151,12 @@
   <div>
     <button id="mulaiMengajiBtn" disabled>Mulai Mengaji</button>
   </div>
-  <button id="btnRekomendasiSuara" style="display: none;">Dengarkan Bacaan</button>
-  <audio id="rekomendasiSuara" controls class="centered" style="display: none;">
-      Your browser does not support the audio element.
-  </audio>
+  <div>
+    <button id="btnRekomendasiSuara" style="display: none;">Dengarkan Bacaan</button>
+    <audio id="rekomendasiSuara" controls class="centered" style="display: none;">
+        Your browser does not support the audio element.
+    </audio>
+  </div>
 <!-- <div>
   
   <button id="cekBacaanBtn" disabled>Cek Bacaan</button>
@@ -235,11 +237,13 @@ fetch('https://equran.id/api/v2/surat')
     console.log('Terjadi kesalahan saat mengambil daftar surat:', error);
   });
 
+let isFirstSurahSelected = false;
 // Ketika pengguna memilih surat
 surahDropdown.addEventListener('change', function () {
   const selectedSurah = surahDropdown.value;
 
   if (selectedSurah === '') {
+    isFirstSurahSelected = false;
     ayatDropdown.disabled = true;
     mulaiMengajiBtn.disabled = true;
     ayatDropdown.innerHTML = '<option value="">Pilih Ayat</option>';
@@ -248,10 +252,13 @@ surahDropdown.addEventListener('change', function () {
     teksQuran.textContent = '';
     teksLatin.textContent = '';
 
+    
+
     //  // Membersihkan teks Arab hasil bacaan pengguna
     // hasilBacaan.textContent = '';
     
   } else {
+    
     ayatDropdown.disabled = false;
     mulaiMengajiBtn.disabled = true;
 
@@ -271,6 +278,11 @@ surahDropdown.addEventListener('change', function () {
         // Membersihkan teks Arab dan Latin ketika surat berubah
         teksQuran.textContent = '';
         teksLatin.textContent = '';
+
+        // Sembunyikan tombol Mulai Mengaji dan Dengarkan Bacaan
+        mulaiMengajiBtn.style.display = 'none';
+        btnRekomendasiSuara.style.display = 'none';
+        bacaanAnda.style.display = 'none';
         
         // // Membersihkan teks Arab hasil bacaan pengguna
         // hasilBacaanJudul.textContent = '';
@@ -282,22 +294,25 @@ surahDropdown.addEventListener('change', function () {
   }
 });
 
+let isFirstAyatSelected = false;
 ayatDropdown.addEventListener('change', function () {
   const selectedAyat = ayatDropdown.value;
   console.log('selectedAyat:', selectedAyat);
 
   if (selectedAyat === '') {
+    isFirstAyatSelected = false;
     // Jika pengguna belum memilih ayat, sembunyikan teks Bacaan Anda dan tombol Mulai Mengaji
     bacaanAnda.style.display = 'none';
     mulaiMengajiBtn.style.display = 'none';
+    btnRekomendasiSuara.style.display = 'none';
     
     // Mengosongkan teks Al-Quran dan teks Latin
     teksQuran.textContent = '';
     teksLatin.textContent = '';
 
-    // Membersihkan teks Arab hasil bacaan pengguna
-    hasilBacaanJudul.textContent = '';
-    hasilBacaan.textContent = '';
+    // // Membersihkan teks Arab hasil bacaan pengguna
+    // hasilBacaanJudul.textContent = '';
+    // hasilBacaan.textContent = '';
   } else {
     // Jika pengguna telah memilih ayat, tampilkan teks Bacaan Anda dan tombol Mulai Mengaji
     bacaanAnda.style.display = 'block';
@@ -324,6 +339,7 @@ ayatDropdown.addEventListener('change', function () {
             teksQuran.textContent = teksArabAlQuran;
             teksLatin.textContent = teksLatinAlQuran;
 
+            btnRekomendasiSuara.style.display = 'none';
             // // Membersihkan teks Arab hasil bacaan pengguna
             // hasilBacaanJudul.textContent = '';
             // hasilBacaan.textContent = '';
@@ -365,41 +381,63 @@ function startSpeechRecognition() {
     const hasilBacaan = document.getElementById('hasilBacaan');
    
 
-  // // Mengatur hasil bacaan pengguna pada halaman web
-  // hasilBacaan.textContent = teksDenganDiacritics;
-  // hasilBacaanJudul.style.display = 'block';
-  // hasilBacaan.style.display = 'block';
+    // // Mengatur hasil bacaan pengguna pada halaman web
+    // hasilBacaan.textContent = teksDenganDiacritics;
+    // hasilBacaanJudul.style.display = 'block';
+    // hasilBacaan.style.display = 'block';
 
-    // Mengambil data teks Al-Quran dari API berdasarkan Surah dan Ayat yang dipilih
-    const selectedSurah = surahDropdown.value;
-    const selectedAyat = ayatDropdown.value;
+      // Mengambil data teks Al-Quran dari API berdasarkan Surah dan Ayat yang dipilih
+      const selectedSurah = surahDropdown.value;
+      const selectedAyat = ayatDropdown.value;
 
-    if (selectedSurah !== '' && selectedAyat !== '') {
-    fetch(`https://equran.id/api/v2/surat/${selectedSurah}`)
-      .then(response => response.json())
-      .then(data => {
-        // Cari teks Al-Quran untuk ayat yang dipilih
-        const selectedAyatData = data.data.ayat.find(
-          ayah => ayah.nomorAyat === parseInt(selectedAyat)
-        );
+      if (selectedSurah !== '' && selectedAyat !== '') {
+      fetch(`https://equran.id/api/v2/surat/${selectedSurah}`)
+        .then(response => response.json())
+        .then(data => {
+          // Cari teks Al-Quran untuk ayat yang dipilih
+          const selectedAyatData = data.data.ayat.find(
+            ayah => ayah.nomorAyat === parseInt(selectedAyat)
+          );
 
-        if (selectedAyatData) {
-          const teksArabAlQuran = selectedAyatData.teksArab;
-          // Menambahkan diacritics ke teks hasil ucapan pengguna menggunakan arabic-code-util
-          const teksDenganDiacritics = addArabicDiacritics(result);
-          const kesalahan = hitungKesalahan(teksArabAlQuran, teksDenganDiacritics);
-          const persentaseKesalahan = Math.round((kesalahan / teksArabAlQuran.length) * 100);
+          if (selectedAyatData) {
+            const teksArabAlQuran = selectedAyatData.teksArab;
+            // Menambahkan diacritics ke teks hasil ucapan pengguna menggunakan arabic-code-util
+            const teksDenganDiacritics = addArabicDiacritics(result);
+            const kesalahan = hitungKesalahan(teksArabAlQuran, teksDenganDiacritics);
+            const persentaseKesalahan = Math.round((kesalahan / teksArabAlQuran.length) * 100);
 
-          // Menampilkan notifikasi berdasarkan persentase kesalahan
-          tampilkanNotifikasi(persentaseKesalahan);
-        } else {
-          console.log('Data teks Al-Quran tidak ditemukan.');
-        }
-      })
-      .catch(error => {
-        console.log('Terjadi kesalahan saat mengambil data teks Al-Quran:', error);
-      });
-  }
+            // Menampilkan notifikasi berdasarkan persentase kesalahan
+            tampilkanNotifikasi(persentaseKesalahan);
+
+            // Menampilkan teks Al-Quran dan bacaan pengguna pada halaman web
+            teksQuran.textContent = teksArabAlQuran; // Teks Al-Quran
+
+            // Memberikan highlight pada teks Al-Quran yang tidak sesuai dengan bacaan pengguna
+            if (persentaseKesalahan > 0) {
+              highlightKesalahan(teksQuran, teksDenganDiacritics);
+            }
+
+            // Fungsi untuk memberikan highlight pada teks Al-Quran yang tidak sesuai dengan bacaan pengguna
+            function highlightKesalahan(teksAsli, teksPengguna) {
+              const teksAsliArray = teksAsli.textContent.split('');
+              let hasilHighlight = '';
+              for (let i = 0; i < teksAsliArray.length; i++) {
+                if (teksAsliArray[i] !== teksPengguna[i]) {
+                  hasilHighlight += `<span style="color: red">${teksAsliArray[i]}</span>`;
+                } else {
+                  hasilHighlight += teksAsliArray[i];
+                }
+              }
+              teksAsli.innerHTML = hasilHighlight;
+            }
+          } else {
+            console.log('Data teks Al-Quran tidak ditemukan.');
+          }
+        })
+        .catch(error => {
+          console.log('Terjadi kesalahan saat mengambil data teks Al-Quran:', error);
+        });
+      }
     };
 
   // Event saat rekaman dihentikan karena mencapai durasi maksimum
@@ -425,6 +463,8 @@ function startSpeechRecognition() {
   };
 }
 
+let isFirstUsage = true;
+
 // Fungsi untuk menampilkan notifikasi sebagai pop-up
 function tampilkanNotifikasi(persentase) {
   let notifikasiTitle = '';
@@ -443,9 +483,15 @@ function tampilkanNotifikasi(persentase) {
   // Menampilkan notifikasi sebagai pop-up
   const confirmNotifikasi = window.confirm(`${notifikasiTitle}\n${notifikasiText}`);
   if (confirmNotifikasi) {
-    // Tampilkan tombol pemutar suara
-    btnRekomendasiSuara.style.display = 'block';
+    if (isFirstUsage) {
+      btnRekomendasiSuara.style.display = 'block';
+      isFirstUsage = false; // Setelah penggunaan pertama, atur flag menjadi false
+      
+    }
 
+    //menampilkan button dengarkan bacaan
+    btnRekomendasiSuara.style.display = 'block';
+    
     // Mengatur fungsi untuk memutar audio saat tombol "Dengarkan Bacaan" ditekan
     btnRekomendasiSuara.addEventListener('click', function() {
       putarRekomendasiSuara(selectedSurah, selectedAyat);
