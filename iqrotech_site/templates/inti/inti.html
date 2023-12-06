@@ -137,10 +137,10 @@
 </tbody>
 </table>
 <div id="teksLatin"></div>
-<!-- <div class="section-title">
+<div class="section-title">
   <h4 id="hasilBacaanJudul" style="display: none;">Hasil Bacaan Anda</h4>
   <div id="hasilBacaan"></div>
-</div> -->
+</div>
 
 <!-- <div class="section-title">
   <h4 id="suaraRekomendasiJudul" style="display: none;">Rekomendasi Suara Bacaan {nama surat sesuai yang dipilih pengguna}</h4>
@@ -340,9 +340,9 @@ ayatDropdown.addEventListener('change', function () {
             teksLatin.textContent = teksLatinAlQuran;
 
             btnRekomendasiSuara.style.display = 'none';
-            // // Membersihkan teks Arab hasil bacaan pengguna
-            // hasilBacaanJudul.textContent = '';
-            // hasilBacaan.textContent = '';
+            // Membersihkan teks Arab hasil bacaan pengguna
+            hasilBacaanJudul.textContent = '';
+            hasilBacaan.textContent = '';
           } else {
             console.log('Data teks Al-Quran tidak ditemukan.');
             teksQuran.textContent = ''; // Mengosongkan teks Al-Quran jika data tidak ditemukan
@@ -381,10 +381,10 @@ function startSpeechRecognition() {
     const hasilBacaan = document.getElementById('hasilBacaan');
    
 
-    // // Mengatur hasil bacaan pengguna pada halaman web
-    // hasilBacaan.textContent = teksDenganDiacritics;
-    // hasilBacaanJudul.style.display = 'block';
-    // hasilBacaan.style.display = 'block';
+    // Mengatur hasil bacaan pengguna pada halaman web
+    hasilBacaan.textContent = teksDenganDiacritics;
+    hasilBacaanJudul.style.display = 'block';
+    hasilBacaan.style.display = 'block';
 
       // Mengambil data teks Al-Quran dari API berdasarkan Surah dan Ayat yang dipilih
       const selectedSurah = surahDropdown.value;
@@ -534,11 +534,72 @@ function addArabicDiacritics(text) {
 // }
 
 // Fungsi untuk menghitung jumlah kesalahan dalam bacaan pengguna
-function hitungKesalahan(bacaanAsli, bacaanPengguna) {
+// function hitungKesalahan(bacaanAsli, bacaanPengguna) {
+//   // Pastikan bacaanAsli dan bacaanPengguna memiliki nilai sebelum melakukan perhitungan
+//   if (!bacaanAsli || !bacaanPengguna) {
+//     return 0;
+//   }
+
+//   console.log('bacaanAsli:', bacaanAsli);
+//   console.log('bacaanPengguna:', bacaanPengguna);
+//   console.log('------------------');
+//   console.log('Proses menginisialisasi:');
+
+//   const m = bacaanAsli.length;
+//   const n = bacaanPengguna.length;
+
+//   // Inisialisasi matriks dengan nilai awal
+//   const dp = [];
+//   for (let i = 0; i <= m; i++) {
+//     dp[i] = [];
+//     dp[i][0] = i;
+//   }
+
+//   for (let j = 0; j <= n; j++) {
+//     dp[0][j] = j;
+//   }
+
+//   console.log('Matriks dengan perhitungan jarak Levenshtein:');
+
+//   // Mengisi matriks dengan perhitungan jarak Levenshtein
+//   for (let i = 1; i <= m; i++) {
+//     for (let j = 1; j <= n; j++) {
+//       if (bacaanAsli[i - 1] === bacaanPengguna[j - 1]) {
+//         dp[i][j] = dp[i - 1][j - 1];
+//       } else {
+//         dp[i][j] = 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
+//       }
+//     }
+//   }
+
+//   // Tampilkan matriks
+//   for (let i = 0; i <= m; i++) {
+//     let row = '';
+//     for (let j = 0; j <= n; j++) {
+//       row += dp[i][j] + '\t';
+//     }
+//     console.log(row);
+//   }
+
+//   console.log('----------');
+//   console.log('Hasil jumlah kesalahan:', dp[m][n]);
+
+//   // Menghitung jumlah kesalahan
+//   const jumlahKesalahan = dp[m][n];
+//   return jumlahKesalahan;
+// }
+
+// function hitungKesalahan(bacaanAsli, bacaanPengguna) {
+  function hitungKesalahan(bacaanAsli, bacaanPengguna) {
   // Pastikan bacaanAsli dan bacaanPengguna memiliki nilai sebelum melakukan perhitungan
   if (!bacaanAsli || !bacaanPengguna) {
     return 0;
   }
+
+  console.log('bacaanAsli:', bacaanAsli);
+  console.log('bacaanPengguna:', bacaanPengguna);
+  console.log('------------------');
+  console.log('Proses menginisialisasi:');
 
   const m = bacaanAsli.length;
   const n = bacaanPengguna.length;
@@ -554,16 +615,32 @@ function hitungKesalahan(bacaanAsli, bacaanPengguna) {
     dp[0][j] = j;
   }
 
+  console.log('Matriks dengan perhitungan jarak Levenshtein:');
+
+  // Tampilan header untuk huruf pada bacaanPengguna
+let header = '';
+for (let i = 0; i <= n; i++) {
+  header += `${bacaanPengguna[i]}\t`;
+}
+console.log(header);
+  
   // Mengisi matriks dengan perhitungan jarak Levenshtein
   for (let i = 1; i <= m; i++) {
+    let row = `${bacaanAsli[i - 1]}\t`;
+
     for (let j = 1; j <= n; j++) {
       if (bacaanAsli[i - 1] === bacaanPengguna[j - 1]) {
         dp[i][j] = dp[i - 1][j - 1];
       } else {
         dp[i][j] = 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
       }
+      row += `${dp[i][j]}\t`;
     }
+    console.log(row);
   }
+
+  console.log('----------');
+  console.log('Hasil jumlah kesalahan:', dp[m][n]);
 
   // Menghitung jumlah kesalahan
   const jumlahKesalahan = dp[m][n];
