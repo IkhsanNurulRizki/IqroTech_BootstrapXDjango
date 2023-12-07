@@ -1,0 +1,1 @@
+web: gunicorn iqrotech_site.wsgi --log-file -
