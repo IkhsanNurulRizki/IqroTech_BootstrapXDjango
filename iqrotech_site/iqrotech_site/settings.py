@@ -47,7 +47,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'iqrotech_site.iqrotech_site.urls'
+ROOT_URLCONF = 'iqrotech_site.urls'
 
 TEMPLATES = [
     {
