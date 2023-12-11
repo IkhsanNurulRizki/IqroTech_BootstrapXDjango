@@ -1,5 +1,3 @@
-if os.path.exists('env.py'):
-        import env
 from pathlib import Path
 import os
 import django_heroku
