@@ -1,3 +1,5 @@
+if os.path.exists('env.py'):
+        import env
 from pathlib import Path
 import os
 import django_heroku
@@ -28,7 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'iqrotech_site.iqrotech_site.hero',
+    'hero',
     'inti',
     'langkah',
     'tentang',
