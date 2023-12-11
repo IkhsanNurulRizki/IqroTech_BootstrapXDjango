@@ -28,7 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'hero',
+    'iqrotech_site.iqrotech_site.hero',
     'inti',
     'langkah',
     'tentang',
