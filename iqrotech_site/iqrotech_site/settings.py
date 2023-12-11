@@ -65,7 +65,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'iqrotech_site.wsgi.application'
+WSGI_APPLICATION = 'iqrotech_site.iqrotech_site.wsgi.application'
 
 
 # Database
