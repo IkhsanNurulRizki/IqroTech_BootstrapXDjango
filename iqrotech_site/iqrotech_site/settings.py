@@ -29,11 +29,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'iqrotech_site',
     'iqrotech_site.hero',
-    'inti',
-    'langkah',
-    'tentang',
-    'me',
-    'testimoni',
+    'iqrotech_site.inti',
+    'iqrotech_site.langkah',
+    'iqrotech_site.tentang',
+    # 'iqrotech_site.me',
+    # 'iqrotech_site.testimoni',
 ]
 
 MIDDLEWARE = [
