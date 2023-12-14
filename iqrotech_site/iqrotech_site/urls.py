@@ -9,6 +9,4 @@ urlpatterns = [
     path('langkah/', include('iqrotech_site.langkah.urls')),
     path('inti/', include('iqrotech_site.inti.urls')),
     path('tentang/', include('iqrotech_site.tentang.urls')),
-    # path('testimoni/', include('testimoni.urls')),
-    # path('me/', include('me.urls')),
 ]

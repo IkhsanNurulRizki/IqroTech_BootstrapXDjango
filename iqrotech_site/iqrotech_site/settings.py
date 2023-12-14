@@ -34,8 +34,6 @@ INSTALLED_APPS = [
     'iqrotech_site.inti',
     'iqrotech_site.langkah',
     'iqrotech_site.tentang',
-    # 'iqrotech_site.me',
-    # 'iqrotech_site.testimoni',
 ]
 
 MIDDLEWARE = [
@@ -123,7 +121,7 @@ USE_TZ = True
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 
