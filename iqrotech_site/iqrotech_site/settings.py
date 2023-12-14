@@ -28,12 +28,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
     'hero',
     'inti',
     'langkah',
-    'tentang',
-    # 'me',
-    # 'testimoni',
+    'tentang'
 ]
 
 MIDDLEWARE = [
