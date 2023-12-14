@@ -32,8 +32,8 @@ INSTALLED_APPS = [
     'inti',
     'langkah',
     'tentang',
-    'me',
-    'testimoni',
+    # 'me',
+    # 'testimoni',
 ]
 
 MIDDLEWARE = [
