@@ -28,11 +28,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+    'iqrotech_site',
     'hero',
     'inti',
     'langkah',
-    'tentang'
+    'tentang',
 ]
 
 MIDDLEWARE = [
