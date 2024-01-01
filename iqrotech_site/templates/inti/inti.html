@@ -141,23 +141,23 @@
       </tbody>
     </table>
     <div id="teksLatin"></div>
-    <div class="section-title">
+    <!-- <div class="section-title">
       <h4 id="hasilBacaanJudul" style="display: none">Hasil Bacaan Anda</h4>
       <div id="hasilBacaan"></div>
-    </div>
+    </div> -->
 
     <!-- <div class="section-title">
   <h4 id="suaraRekomendasiJudul" style="display: none;">Rekomendasi Suara Bacaan {nama surat sesuai yang dipilih pengguna}</h4>
   <audio id="audioRekomendasiSuara" controls style="display: none;"></audio>
   <button id="playAudioButton">Putar Audio</button>
 </div> -->
-    <div class="flex">
+    <div class="flex" style="margin-top: 20px">
       <div>
         <button id="mulaiMengajiBtn" disabled>Mulai Mengaji</button>
       </div>
-      <div>
+      <div style="margin-left: 10px">
         <button id="btnRekomendasiSuara" style="display: none">
-          Dengarkan Bacaan
+          Dengarkan Suara Bacaan
         </button>
         <audio
           id="rekomendasiSuara"
@@ -168,16 +168,7 @@
           Your browser does not support the audio element.
         </audio>
       </div>
-      <!-- <div>
-  
-  <button id="cekBacaanBtn" disabled>Cek Bacaan</button>
-</div>  -->
     </div>
-    <!-- audio untuk memuat audio rekomendasi suara -->
-    <!-- <audio id="audioRekomendasiSuara" controls style="display: none;"></audio>
-<button id="rekomendasiSuaraBtn" class="enabled" style="display: none;">
-  <i class="fa fa-play"></i> Rekomendasi Suara
-</button> -->
     <div id="pesan" class="notifikasi"></div>
   </div>
 </section>
@@ -346,8 +337,8 @@
 
               btnRekomendasiSuara.style.display = "none";
               // Membersihkan teks Arab hasil bacaan pengguna
-              hasilBacaanJudul.textContent = "";
-              hasilBacaan.textContent = "";
+              // hasilBacaanJudul.textContent = "";
+              // hasilBacaan.textContent = "";
             } else {
               console.log("Data teks Al-Quran tidak ditemukan.");
               teksQuran.textContent = ""; // Mengosongkan teks Al-Quran jika data tidak ditemukan
@@ -370,9 +361,9 @@
     const recognition = new webkitSpeechRecognition();
     recognition.lang = "ar-AR";
 
-    // Durasi maksimum rekaman 1 menit (60 detik)
+    
     recognition.maxDuration = 0;
-    // Timeout jika tidak ada suara selama 3 detik
+   
     recognition.timeout = 6000;
 
     recognition.start();
@@ -384,13 +375,13 @@
       tambahkanDiacritic(result);
 
       // Menampilkan hasil bacaan pengguna pada halaman web
-      const hasilBacaanJudul = document.getElementById("hasilBacaanJudul");
+      // const hasilBacaanJudul = document.getElementById("hasilBacaanJudul");
       // const hasilBacaan = document.getElementById("hasilBacaan");
 
       // Mengatur hasil bacaan pengguna pada halaman web
       // hasilBacaan.textContent = result;
-      hasilBacaanJudul.style.display = "block";
-      hasilBacaan.style.display = "block";
+      // hasilBacaanJudul.style.display = "block";
+      // hasilBacaan.style.display = "block";
 
       // // Mengambil data teks Al-Quran dari API berdasarkan Surah dan Ayat yang dipilih
       // const selectedSurah = surahDropdown.value;
@@ -404,9 +395,9 @@
             const teksDenganDiacritics = data.result;
             console.log("Teks dengan diakritik:", teksDenganDiacritics);
 
-            // Menampilkan hasil teks dengan diakritik pada halaman web
-            const hasilBacaan = document.getElementById("hasilBacaan");
-            hasilBacaan.textContent = teksDenganDiacritics;
+            // // Menampilkan hasil teks dengan diakritik pada halaman web
+            // const hasilBacaan = document.getElementById("hasilBacaan");
+            // hasilBacaan.textContent = teksDenganDiacritics;
 
             // Menemukan kesalahan dan menyoroti teks yang tidak sesuai
             const selectedSurah = surahDropdown.value;
@@ -432,8 +423,18 @@
 
                     console.log("Proses Perhitungan Persentase Kesalahan:");
                     console.log("Jumlah Kesalahan:", kesalahan);
-                    console.log("Panjang Teks Al-Quran:", teksArabAlQuran.length);
-                    console.log(kesalahan,'/',teksArabAlQuran.length,'*100 =',persentaseKesalahan,'%');
+                    console.log(
+                      "Panjang Teks Al-Quran:",
+                      teksArabAlQuran.length
+                    );
+                    console.log(
+                      kesalahan,
+                      "/",
+                      teksArabAlQuran.length,
+                      "*100 =",
+                      persentaseKesalahan,
+                      "%"
+                    );
 
                     // Menampilkan notifikasi berdasarkan persentase kesalahan
                     tampilkanNotifikasi(persentaseKesalahan);
@@ -462,18 +463,58 @@
     };
 
     // Fungsi untuk memberikan highlight pada teks Al-Quran yang tidak sesuai dengan bacaan pengguna
-    function highlightKesalahan(teksAsli, teksPengguna) {
+    function highlightKesalahan(teksAsli, teksDenganDiacritics) {
       const teksAsliArray = teksAsli.textContent.split("");
+      const teksDiacriticArray = teksDenganDiacritics
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .split("");
+
       let hasilHighlight = "";
+
       for (let i = 0; i < teksAsliArray.length; i++) {
-        if (teksAsliArray[i] !== teksPengguna[i]) {
-          hasilHighlight += `<span style="color: red">${teksAsliArray[i]}</span>`;
-        } else {
+        // Cek jika karakter adalah huruf Arab atau tanda baca
+        const regexHurufArab = /[\u0600-\u06FF]/;
+        const karakterAsliArab = regexHurufArab.test(teksAsliArray[i]);
+        const karakterDiacriticArab = regexHurufArab.test(
+          teksDiacriticArray[i]
+        );
+
+        // Cek apakah karakter sesuai atau merupakan tanda baca
+        if (
+          (karakterAsliArab && karakterDiacriticArab) ||
+          (!karakterAsliArab && !karakterDiacriticArab)
+        ) {
+          // Jika karakter sama, tidak perlu highlight
           hasilHighlight += teksAsliArray[i];
+        } else {
+          // Jika karakter berbeda, highlight karakter yang berbeda
+          hasilHighlight += `<span style="color: red">${teksAsliArray[i]}</span>`;
         }
       }
+
       teksAsli.innerHTML = hasilHighlight;
     }
+
+    // function highlightKesalahan(teksAsli, teksDenganDiacritics) {
+    //   const teksAsliArray = teksAsli.textContent.split("");
+    //   const teksDiacriticArray = teksDenganDiacritics
+    //     .normalize("NFD")
+    //     .replace(/[\u0300-\u036f]/g, "")
+    //     .split("");
+
+    //   let hasilHighlight = "";
+
+    //   for (let i = 0; i < teksAsliArray.length; i++) {
+    //     if (teksAsliArray[i] !== teksDiacriticArray[i]) {
+    //       hasilHighlight += `<span style="color: red">${teksAsliArray[i]}</span>`;
+    //     } else {
+    //       hasilHighlight += teksAsliArray[i];
+    //     }
+    //   }
+
+    //   teksAsli.innerHTML = hasilHighlight;
+    // }
 
     // Event saat rekaman dihentikan karena mencapai durasi maksimum
     recognition.onaudiostart = function (event) {
@@ -511,8 +552,8 @@
       notifikasiTitle = "Masyaallah, bacaanmu 100% benar!";
       notifikasiText = "Selamat! Bacaanmu sempurna.";
     } else {
-      notifikasiTitle = `Terdapat ${persentase}% perbedaan dengan bacaanmu`;
-      notifikasiText = "Mari kita perbaiki bersama-sama.";
+      notifikasiTitle = `Terdapat ${persentase}% kesalahan`;
+      notifikasiText = "Mari lihat kesalahan bacaannya.";
     }
 
     // Menampilkan notifikasi sebagai pop-up
