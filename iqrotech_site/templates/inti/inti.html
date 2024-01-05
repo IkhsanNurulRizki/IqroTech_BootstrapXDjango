@@ -141,10 +141,10 @@
       </tbody>
     </table>
     <div id="teksLatin"></div>
-    <!-- <div class="section-title">
+    <div class="section-title">
       <h4 id="hasilBacaanJudul" style="display: none">Hasil Bacaan Anda</h4>
       <div id="hasilBacaan"></div>
-    </div> -->
+    </div>
 
     <!-- <div class="section-title">
   <h4 id="suaraRekomendasiJudul" style="display: none;">Rekomendasi Suara Bacaan {nama surat sesuai yang dipilih pengguna}</h4>
@@ -182,6 +182,8 @@
   const teksLatin = document.getElementById("teksLatin");
   const audioPlayer = document.getElementById("rekomendasiSuara");
   const btnRekomendasiSuara = document.getElementById("btnRekomendasiSuara");
+  // const hasilBacaanJudul = document.getElementById("hasilBacaanJudul");
+  // const hasilBacaan = document.getElementById("hasilBacaan");
   // const pesan = document.getElementById('pesan');
   // const cekBacaanBtn = document.getElementById('cekBacaanBtn');
   // const outputCekBacaan = document.getElementById('outputCekBacaan');
@@ -252,8 +254,8 @@
       teksQuran.textContent = "";
       teksLatin.textContent = "";
 
-      //  // Membersihkan teks Arab hasil bacaan pengguna
-      // hasilBacaan.textContent = '';
+      // Membersihkan teks Arab hasil bacaan pengguna
+      hasilBacaan.textContent = '';
     } else {
       ayatDropdown.disabled = false;
       mulaiMengajiBtn.disabled = true;
@@ -280,9 +282,9 @@
           btnRekomendasiSuara.style.display = "none";
           bacaanAnda.style.display = "none";
 
-          // // Membersihkan teks Arab hasil bacaan pengguna
-          // hasilBacaanJudul.textContent = '';
-          // hasilBacaan.textContent = '';
+          // Membersihkan teks Arab hasil bacaan pengguna
+          hasilBacaanJudul.textContent = '';
+          hasilBacaan.textContent = '';
         })
         .catch((error) => {
           console.log("Terjadi kesalahan saat mengambil jumlah ayat:", error);
@@ -306,9 +308,9 @@
       teksQuran.textContent = "";
       teksLatin.textContent = "";
 
-      // // Membersihkan teks Arab hasil bacaan pengguna
-      // hasilBacaanJudul.textContent = '';
-      // hasilBacaan.textContent = '';
+      // Membersihkan teks Arab hasil bacaan pengguna
+      hasilBacaanJudul.textContent = '';
+      hasilBacaan.textContent = '';
     } else {
       // Jika pengguna telah memilih ayat, tampilkan teks Bacaan Anda dan tombol Mulai Mengaji
       bacaanAnda.style.display = "block";
@@ -374,14 +376,14 @@
       // Menambahkan diakritik pada teks hasil pengguna
       tambahkanDiacritic(result);
 
-      // Menampilkan hasil bacaan pengguna pada halaman web
-      // const hasilBacaanJudul = document.getElementById("hasilBacaanJudul");
-      // const hasilBacaan = document.getElementById("hasilBacaan");
+      //Menampilkan hasil bacaan pengguna pada halaman web
+      const hasilBacaanJudul = document.getElementById("hasilBacaanJudul");
+      const hasilBacaan = document.getElementById("hasilBacaan");
 
-      // Mengatur hasil bacaan pengguna pada halaman web
-      // hasilBacaan.textContent = result;
-      // hasilBacaanJudul.style.display = "block";
-      // hasilBacaan.style.display = "block";
+      //Mengatur hasil bacaan pengguna pada halaman web
+      hasilBacaan.textContent = result;
+      hasilBacaanJudul.style.display = "block";
+      hasilBacaan.style.display = "block";
 
       // // Mengambil data teks Al-Quran dari API berdasarkan Surah dan Ayat yang dipilih
       // const selectedSurah = surahDropdown.value;
@@ -395,9 +397,9 @@
             const teksDenganDiacritics = data.result;
             console.log("Teks dengan diakritik:", teksDenganDiacritics);
 
-            // // Menampilkan hasil teks dengan diakritik pada halaman web
+            // Menampilkan hasil teks dengan diakritik pada halaman web
             // const hasilBacaan = document.getElementById("hasilBacaan");
-            // hasilBacaan.textContent = teksDenganDiacritics;
+            hasilBacaan.textContent = teksDenganDiacritics;
 
             // Menemukan kesalahan dan menyoroti teks yang tidak sesuai
             const selectedSurah = surahDropdown.value;
@@ -463,8 +465,8 @@
     };
 
     // Fungsi untuk memberikan highlight pada teks Al-Quran yang tidak sesuai dengan bacaan pengguna
-    function highlightKesalahan(teksAsli, teksDenganDiacritics) {
-      const teksAsliArray = teksAsli.textContent.split("");
+    function highlightKesalahan(teksArabAlQuran, teksDenganDiacritics) {
+      const teksArabAlQuranArray = teksArabAlQuran.textContent.split("");
       const teksDiacriticArray = teksDenganDiacritics
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "")
@@ -472,10 +474,10 @@
 
       let hasilHighlight = "";
 
-      for (let i = 0; i < teksAsliArray.length; i++) {
+      for (let i = 0; i < teksArabAlQuranArray.length; i++) {
         // Cek jika karakter adalah huruf Arab atau tanda baca
         const regexHurufArab = /[\u0600-\u06FF]/;
-        const karakterAsliArab = regexHurufArab.test(teksAsliArray[i]);
+        const karakterAsliArab = regexHurufArab.test(teksArabAlQuranArray[i]);
         const karakterDiacriticArab = regexHurufArab.test(
           teksDiacriticArray[i]
         );
@@ -486,14 +488,14 @@
           (!karakterAsliArab && !karakterDiacriticArab)
         ) {
           // Jika karakter sama, tidak perlu highlight
-          hasilHighlight += teksAsliArray[i];
+          hasilHighlight += teksArabAlQuranArray[i];
         } else {
           // Jika karakter berbeda, highlight karakter yang berbeda
-          hasilHighlight += `<span style="color: red">${teksAsliArray[i]}</span>`;
+          hasilHighlight += `<span style="color: red">${teksArabAlQuranArray[i]}</span>`;
         }
       }
 
-      teksAsli.innerHTML = hasilHighlight;
+      teksArabAlQuran.innerHTML = hasilHighlight;
     }
 
     // function highlightKesalahan(teksAsli, teksDenganDiacritics) {
@@ -691,19 +693,19 @@
   // }
 
   // function hitungKesalahan(bacaanAsli, bacaan pengguna) {
-  function hitungKesalahan(bacaanAsli, bacaanPengguna) {
-    // Pastikan bacaanAsli dan bacaan pengguna memiliki nilai sebelum melakukan perhitungan
-    if (!bacaanAsli || !bacaanPengguna) {
+  function hitungKesalahan(teksArabAlQuran, teksDenganDiacritics) {
+    // Pastikan teksArabAlQuran dan bacaan pengguna memiliki nilai sebelum melakukan perhitungan
+    if (!teksArabAlQuran || !teksDenganDiacritics) {
       return 0;
     }
 
-    console.log("bacaan asli:", bacaanAsli);
-    console.log("bacaan pengguna:", bacaanPengguna);
+    console.log("bacaan asli:", teksArabAlQuran);
+    console.log("bacaan pengguna:", teksDenganDiacritics);
     console.log("------------------");
     console.log("Proses menginisialisasi:");
 
-    const m = bacaanAsli.length;
-    const n = bacaanPengguna.length;
+    const m = teksArabAlQuran.length;
+    const n = teksDenganDiacritics.length;
 
     // Inisialisasi matriks dengan nilai awal
     const dp = [];
@@ -721,16 +723,16 @@
     // Tampilan header untuk huruf pada bacaan pengguna
     let header = "";
     for (let i = 0; i <= n; i++) {
-      header += `${bacaanPengguna[i]}\t`;
+      header += `${teksDenganDiacritics[i]}\t`;
     }
     console.log(header);
 
     // Mengisi matriks dengan perhitungan jarak Levenshtein
     for (let i = 1; i <= m; i++) {
-      let row = `${bacaanAsli[i - 1]}\t`;
+      let row = `${teksArabAlQuran[i - 1]}\t`;
 
       for (let j = 1; j <= n; j++) {
-        if (bacaanAsli[i - 1] === bacaanPengguna[j - 1]) {
+        if (teksArabAlQuran[i - 1] === teksDenganDiacritics[j - 1]) {
           dp[i][j] = dp[i - 1][j - 1];
         } else {
           dp[i][j] = 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
