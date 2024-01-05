@@ -466,37 +466,37 @@
 
     // Fungsi untuk memberikan highlight pada teks Al-Quran yang tidak sesuai dengan bacaan pengguna
     function highlightKesalahan(teksArabAlQuran, teksDenganDiacritics) {
-      const teksArabAlQuranArray = teksArabAlQuran.textContent.split("");
-      const teksDiacriticArray = teksDenganDiacritics
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .split("");
+  const teksArabAlQuranArray = teksArabAlQuran.textContent.split("");
+  const teksDiacriticArray = teksDenganDiacritics
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .split("")
+    .map((char) => char.replace(/[\u064B-\u065F]/g, "")); // Menghapus diakritik
 
-      let hasilHighlight = "";
+  let hasilHighlight = "";
 
-      for (let i = 0; i < teksArabAlQuranArray.length; i++) {
-        // Cek jika karakter adalah huruf Arab atau tanda baca
-        const regexHurufArab = /[\u0600-\u06FF]/;
-        const karakterAsliArab = regexHurufArab.test(teksArabAlQuranArray[i]);
-        const karakterDiacriticArab = regexHurufArab.test(
-          teksDiacriticArray[i]
-        );
+  for (let i = 0; i < teksArabAlQuranArray.length; i++) {
+    // Cek jika karakter adalah huruf Arab atau tanda baca
+    const regexHurufArab = /[\u0600-\u06FF]/;
+    const karakterAsliArab = regexHurufArab.test(teksArabAlQuranArray[i]);
+    const karakterDiacriticArab = regexHurufArab.test(teksDiacriticArray[i]);
 
-        // Cek apakah karakter sesuai atau merupakan tanda baca
-        if (
-          (karakterAsliArab && karakterDiacriticArab) ||
-          (!karakterAsliArab && !karakterDiacriticArab)
-        ) {
-          // Jika karakter sama, tidak perlu highlight
-          hasilHighlight += teksArabAlQuranArray[i];
-        } else {
-          // Jika karakter berbeda, highlight karakter yang berbeda
-          hasilHighlight += `<span style="color: red">${teksArabAlQuranArray[i]}</span>`;
-        }
-      }
-
-      teksArabAlQuran.innerHTML = hasilHighlight;
+    // Cek apakah karakter sesuai atau merupakan tanda baca
+    if (
+      (karakterAsliArab && karakterDiacriticArab) ||
+      (!karakterAsliArab && !karakterDiacriticArab)
+    ) {
+      // Jika karakter sama, tidak perlu highlight
+      hasilHighlight += teksArabAlQuranArray[i];
+    } else {
+      // Jika karakter berbeda, highlight karakter yang berbeda
+      hasilHighlight += `<span style="color: red">${teksArabAlQuranArray[i]}</span>`;
     }
+  }
+
+  teksArabAlQuran.innerHTML = hasilHighlight;
+}
+
 
     // function highlightKesalahan(teksAsli, teksDenganDiacritics) {
     //   const teksAsliArray = teksAsli.textContent.split("");
@@ -694,66 +694,68 @@
 
   // function hitungKesalahan(bacaanAsli, bacaan pengguna) {
   function hitungKesalahan(teksArabAlQuran, teksDenganDiacritics) {
+
+    
     // Pastikan teksArabAlQuran dan bacaan pengguna memiliki nilai sebelum melakukan perhitungan
-    if (!teksArabAlQuran || !teksDenganDiacritics) {
+    if (!teksArabAlQuran.trim() || !teksDenganDiacritics.trim()) {
       return 0;
     }
+    const arabAPI = teksArabAlQuran.replace(/([^\u0621-\u063A\u0641-\u064A\u0660-\u0669a-zA-Z 0-9])/g, '');
+    const userLatin = teksDenganDiacritics.replace(/([^\u0621-\u063A\u0641-\u064A\u0660-\u0669a-zA-Z 0-9])/g, '');
 
-    console.log("bacaan asli:", teksArabAlQuran);
-    console.log("bacaan pengguna:", teksDenganDiacritics);
+    console.log("bacaan asli:", arabAPI);
+    console.log("bacaan pengguna:", userLatin);
     console.log("------------------");
     console.log("Proses menginisialisasi:");
 
-    const m = teksArabAlQuran.length;
-    const n = teksDenganDiacritics.length;
+    const m = arabAPI.replace(/\s/g, "").length;
+  const n = userLatin.replace(/\s/g, "").length;
 
-    // Inisialisasi matriks dengan nilai awal
-    const dp = [];
-    for (let i = 0; i <= m; i++) {
-      dp[i] = [];
-      dp[i][0] = i;
-    }
+  // Initialize the matrix with initial values
+  const dp = [];
+  for (let i = 0; i <= m; i++) {
+    dp[i] = [];
+    dp[i][0] = i;
+  }
 
-    for (let j = 0; j <= n; j++) {
-      dp[0][j] = j;
-    }
+  for (let j = 0; j <= n; j++) {
+    dp[0][j] = j;
+  }
 
-    console.log("Matriks dengan perhitungan jarak Levenshtein:");
+  console.log("Matriks dengan perhitungan jarak Levenshtein:");
 
-    // Tampilan header untuk huruf pada bacaan pengguna
-    let header = "";
+  // Tampilan header untuk huruf pada bacaan pengguna
+  let header = "";
     for (let i = 0; i <= n; i++) {
-      header += `${teksDenganDiacritics[i]}\t`;
+      header += `${userLatin[i]}\t`;
     }
     console.log(header);
 
-    // Mengisi matriks dengan perhitungan jarak Levenshtein
-    for (let i = 1; i <= m; i++) {
-      let row = `${teksArabAlQuran[i - 1]}\t`;
+  // Fill the matrix with Levenshtein distance calculations
+  for (let i = 1; i <= m; i++) {
+    let row = `${arabAPI[i - 1]}\t`;
 
-      for (let j = 1; j <= n; j++) {
-        if (teksArabAlQuran[i - 1] === teksDenganDiacritics[j - 1]) {
-          dp[i][j] = dp[i - 1][j - 1];
-        } else {
-          dp[i][j] = 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
-        }
-        row += `${dp[i][j]}\t`;
+    for (let j = 1; j <= n; j++) {
+      if (arabAPI[i - 1] === userLatin[j - 1]) {
+        dp[i][j] = dp[i - 1][j - 1];
+      } else {
+        dp[i][j] = 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
       }
-      console.log(row);
+      row += `${dp[i][j]}\t`;
     }
-
-    console.log("----------");
-    // console.log("Hasil jumlah kesalahan:", dp[m][n]);
-
-    // Menghitung jumlah kesalahan
-    const jumlahKesalahan = dp[m][n];
-    return jumlahKesalahan;
+    console.log(row);
   }
+
+  console.log("----------");
+  console.log("Hasil jumlah kesalahan:", dp[m][n]);
+
+  // Calculate the number of errors
+  const jumlahKesalahan = dp[m][n];
+  return jumlahKesalahan;
+}
 
   function putarRekomendasiSuara(selectedSurah, selectedAyat) {
     if (selectedSurah && selectedAyat) {
-      // Anda harus mengambil URL audio yang sesuai dengan pilihan pengguna dari API
-      // dan memasukkannya ke dalam elemen audio
       fetch(`https://equran.id/api/v2/surat/${selectedSurah}`)
         .then((response) => response.json())
         .then((data) => {
