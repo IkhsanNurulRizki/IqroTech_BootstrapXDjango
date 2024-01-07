@@ -691,25 +691,23 @@
   //   const jumlahKesalahan = dp[m][n];
   //   return jumlahKesalahan;
   // }
+  
+  // Fungsi untuk menghitung jumlah kesalahan dalam bacaan pengguna
+function hitungKesalahan(teksArabAlQuran, teksDenganDiacritics) {
+  // Pastikan teksArabAlQuran dan bacaan pengguna memiliki nilai sebelum melakukan perhitungan
+  if (!teksArabAlQuran.trim() || !teksDenganDiacritics.trim()) {
+    return 0;
+  }
+  const arabAPI = teksArabAlQuran.replace(/([^\u0621-\u063A\u0641-\u064A\u0660-\u0669a-zA-Z 0-9])/g, '');
+  const userLatin = teksDenganDiacritics.replace(/([^\u0621-\u063A\u0641-\u064A\u0660-\u0669a-zA-Z 0-9])/g, '');
 
-  // function hitungKesalahan(bacaanAsli, bacaan pengguna) {
-  function hitungKesalahan(teksArabAlQuran, teksDenganDiacritics) {
+  console.log("bacaan asli:", arabAPI);
+  console.log("bacaan pengguna:", userLatin);
+  console.log("------------------");
+  console.log("Proses menginisialisasi:");
 
-    
-    // Pastikan teksArabAlQuran dan bacaan pengguna memiliki nilai sebelum melakukan perhitungan
-    if (!teksArabAlQuran.trim() || !teksDenganDiacritics.trim()) {
-      return 0;
-    }
-    const arabAPI = teksArabAlQuran.replace(/([^\u0621-\u063A\u0641-\u064A\u0660-\u0669a-zA-Z 0-9])/g, '');
-    const userLatin = teksDenganDiacritics.replace(/([^\u0621-\u063A\u0641-\u064A\u0660-\u0669a-zA-Z 0-9])/g, '');
-
-    console.log("bacaan asli:", arabAPI);
-    console.log("bacaan pengguna:", userLatin);
-    console.log("------------------");
-    console.log("Proses menginisialisasi:");
-
-    const m = arabAPI.replace(/\s/g, "").length;
-  const n = userLatin.replace(/\s/g, "").length;
+  const m = arabAPI.length;
+  const n = userLatin.length;
 
   // Initialize the matrix with initial values
   const dp = [];
@@ -725,17 +723,32 @@
   console.log("Matriks dengan perhitungan jarak Levenshtein:");
 
   // Tampilan header untuk huruf pada bacaan pengguna
-  let header = "";
-    for (let i = 0; i <= n; i++) {
-      header += `${userLatin[i]}\t`;
-    }
-    console.log(header);
+  let header = "\t";
+  for (let i = 0; i <= n; i++) {
+    header += `${userLatin[i]}\t`;
+  }
+  console.log(header);
 
   // Fill the matrix with Levenshtein distance calculations
-  for (let i = 1; i <= m; i++) {
-    let row = `${arabAPI[i - 1]}\t`;
+  for (let i = 0; i <= m; i++) {
+    let row = `${i === 0 ? ' ' : arabAPI[i - 1]}\t`;
 
-    for (let j = 1; j <= n; j++) {
+    for (let j = 0; j <= n; j++) {
+      if (i === 0 && j === 0) {
+        row += '0\t';
+        continue;
+      }
+
+      if (i === 0) {
+        row += `${j}\t`;
+        continue;
+      }
+
+      if (j === 0) {
+        row += `${i}\t`;
+        continue;
+      }
+
       if (arabAPI[i - 1] === userLatin[j - 1]) {
         dp[i][j] = dp[i - 1][j - 1];
       } else {
@@ -747,12 +760,74 @@
   }
 
   console.log("----------");
-  console.log("Hasil jumlah kesalahan:", dp[m][n]);
+
 
   // Calculate the number of errors
   const jumlahKesalahan = dp[m][n];
   return jumlahKesalahan;
 }
+
+
+//   function hitungKesalahan(teksArabAlQuran, teksDenganDiacritics) {
+
+    
+//     // Pastikan teksArabAlQuran dan bacaan pengguna memiliki nilai sebelum melakukan perhitungan
+//     if (!teksArabAlQuran.trim() || !teksDenganDiacritics.trim()) {
+//       return 0;
+//     }
+//     const arabAPI = teksArabAlQuran.replace(/([^\u0621-\u063A\u0641-\u064A\u0660-\u0669a-zA-Z 0-9])/g, '');
+//     const userLatin = teksDenganDiacritics.replace(/([^\u0621-\u063A\u0641-\u064A\u0660-\u0669a-zA-Z 0-9])/g, '');
+
+//     console.log("bacaan asli:", arabAPI);
+//     console.log("bacaan pengguna:", userLatin);
+//     console.log("------------------");
+//     console.log("Proses menginisialisasi:");
+
+//     const m = arabAPI.replace(/\s/g, "").length;
+//   const n = userLatin.replace(/\s/g, "").length;
+
+//   // Initialize the matrix with initial values
+//   const dp = [];
+//   for (let i = 0; i <= m; i++) {
+//     dp[i] = [];
+//     dp[i][0] = i;
+//   }
+
+//   for (let j = 0; j <= n; j++) {
+//     dp[0][j] = j;
+//   }
+
+//   console.log("Matriks dengan perhitungan jarak Levenshtein:");
+
+//   // Tampilan header untuk huruf pada bacaan pengguna
+//   let header = "";
+//     for (let i = 0; i <= n; i++) {
+//       header += `${userLatin[i]}\t`;
+//     }
+//     console.log(header);
+
+//   // Fill the matrix with Levenshtein distance calculations
+//   for (let i = 1; i <= m; i++) {
+//     let row = `${arabAPI[i - 1]}\t`;
+
+//     for (let j = 1; j <= n; j++) {
+//       if (arabAPI[i - 1] === userLatin[j - 1]) {
+//         dp[i][j] = dp[i - 1][j - 1];
+//       } else {
+//         dp[i][j] = 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
+//       }
+//       row += `${dp[i][j]}\t`;
+//     }
+//     console.log(row);
+//   }
+
+//   console.log("----------");
+//   console.log("Hasil jumlah kesalahan:", dp[m][n]);
+
+//   // Calculate the number of errors
+//   const jumlahKesalahan = dp[m][n];
+//   return jumlahKesalahan;
+// }
 
   function putarRekomendasiSuara(selectedSurah, selectedAyat) {
     if (selectedSurah && selectedAyat) {
