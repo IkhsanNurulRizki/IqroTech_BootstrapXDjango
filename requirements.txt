@@ -85,7 +85,6 @@ pycparser==2.21
 pydantic==2.5.2
 pydantic_core==2.14.5
 pyonmttok==1.37.1
-pyparsing==3.0.9
 pywin32==306
 PyYAML==6.0.1
 qalsadi==0.5
