@@ -85,7 +85,10 @@ pycparser==2.21
 pydantic==2.5.2
 pydantic_core==2.14.5
 pyonmttok==1.37.1
-pywin32==306
+pytz==2022.7.1
+python-decouple==3.8
+python-dateutil==2.8.2
+pyparsing==3.0.9
 PyYAML==6.0.1
 qalsadi==0.5
 rapidfuzz==3.5.2
