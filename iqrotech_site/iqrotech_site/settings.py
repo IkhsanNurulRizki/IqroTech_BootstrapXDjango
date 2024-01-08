@@ -16,7 +16,7 @@ SECRET_KEY = 'django-insecure-i48cq*k!d6+sys!-^0xvz9na_k5e026t#k1_^3wdq9^0%4+ye1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['iqrotech.herokuapp.com/','127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -29,10 +29,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'iqrotech_site',
-    'hero',
-    'inti',
-    'langkah',
-    'tentang',
+    'iqrotech_site.hero',
+    'iqrotech_site.inti',
+    'iqrotech_site.langkah',
+    'iqrotech_site.tentang',
 ]
 
 MIDDLEWARE = [
@@ -64,7 +64,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'iqrotech_site.wsgi.application'
+WSGI_APPLICATION = 'iqrotech_site.iqrotech_site.wsgi.application'
 
 
 # Database
@@ -112,9 +112,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "media")
 
 django_heroku.settings(locals())
 
