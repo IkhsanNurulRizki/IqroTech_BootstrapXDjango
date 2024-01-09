@@ -1,13 +1,15 @@
 <style>
   #searchSurah {
-  width: 200px; /* Atur lebar input sesuai kebutuhan */
-  display: inline-block; /* Mengatur elemen dalam satu baris */
-  vertical-align: middle; /* Mengatur posisi vertikal di tengah */
-}
+    width: 200px; /* Atur lebar input sesuai kebutuhan */
+    display: inline-block; /* Mengatur elemen dalam satu baris */
+    vertical-align: middle; /* Mengatur posisi vertikal di tengah */
+  }
 
-#bacaanAnda, #mulaiMengajiBtn {
-  display: none;
-}
+  #bacaanAnda,
+  #mulaiMengajiBtn,
+  #hasilBacaanJudul {
+    display: none;
+  }
   /* Tampilan Dropdown */
   select {
     padding: 10px;
@@ -22,22 +24,21 @@
   }
 
   .centered-dropdown {
-  display: block;
-  margin: 0 auto; /* Membuat dropdown berada di tengah secara horizontal */
-  text-align: center; /* Untuk mengatur teks dropdown di tengah */
-}
+    display: block;
+    margin: 0 auto; /* Membuat dropdown berada di tengah secara horizontal */
+    text-align: center; /* Untuk mengatur teks dropdown di tengah */
+  }
 
   .centered {
-      
-      justify-content: center;
-      align-items: center;
-      width: 70%;
-      margin: auto;
-    }
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    margin: auto;
+  }
 
-    .btn{
-      margin-left: 10px;
-    }
+  .btn {
+    margin-left: 10px;
+  }
 
   /* Tampilan Button */
   button {
@@ -58,56 +59,59 @@
   font-weight: bold;
 } */
 
-  .flex
-  {
+  .flex {
     display: flex;
     justify-content: center;
   }
 
   .flex select {
-  margin: 0 10px; /* Atur margin sesuai kebutuhan Anda */
-}
-
-  /* Tombol Rekomendasi Suara */
-#rekomendasiSuaraBtn {
-  display: none;
-  margin-top: 10px;
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 10px 0 10px 20px;
-  border-color: transparent transparent transparent #3498db;
-  cursor: pointer;
-}
-
-/* Menampilkan tombol hanya ketika ada audio rekomendasi */
-#rekomendasiSuaraBtn.enabled {
-  display: block;
-}
-
-/* Tombol ketika dihover */
-#rekomendasiSuaraBtn:hover {
-  border-color: transparent transparent transparent #2980b9;
-}
-
-#teksQuran {
-  direction: rtl; /* Mengatur arah teks dari kanan ke kiri */
-  text-align: right; /* Mengatur teks agar rata kanan */
-}
-
-#hasilBacaanJudul {
-    font-size: 24px; 
-    font-weight: bold; 
-    text-align: left; 
+    margin: 0 10px; /* Atur margin sesuai kebutuhan Anda */
   }
 
-#hasilBacaan {
-  font-size: 28px;
-  direction: rtl;
-  text-align: right;
-  display: none;
-}
+  /* Tombol Rekomendasi Suara */
+  #rekomendasiSuaraBtn {
+    display: none;
+    margin-top: 10px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 0 10px 20px;
+    border-color: transparent transparent transparent #3498db;
+    cursor: pointer;
+  }
 
+  /* Menampilkan tombol hanya ketika ada audio rekomendasi */
+  #rekomendasiSuaraBtn.enabled {
+    display: block;
+  }
+
+  /* Tombol ketika dihover */
+  #rekomendasiSuaraBtn:hover {
+    border-color: transparent transparent transparent #2980b9;
+  }
+
+  #teksQuran {
+    direction: rtl; /* Mengatur arah teks dari kanan ke kiri */
+    text-align: right; /* Mengatur teks agar rata kanan */
+  }
+
+  #my-auto {
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  #hasilBacaanJudul {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: left;
+  }
+
+  #hasilBacaan {
+    font-size: 28px;
+    direction: rtl;
+    text-align: right;
+    display: none;
+  }
 </style>
 
 <section id="inti" data-aos="fade-up">
@@ -125,837 +129,574 @@
         <!-- Opsi-opsi ayat -->
       </select>
     </div>
-<table class="table" style="font-size: 28px;">
-  <tbody><tr>
-    <th id="bacaanAnda">Bacaan Anda</th>
-    <!-- <th>Bacaan Asli</th> -->
-  </tr>
-  <tr>
-    <td id="teksQuran"></td>
-    <!-- <td id="outputCekBacaan"></td> -->
-  </tr>
-</tbody>
-</table>
-<div id="teksLatin"></div>
-<div class="section-title">
-  <h4 id="hasilBacaanJudul" style="display: none;">Hasil Bacaan Anda</h4>
-  <div id="hasilBacaan"></div>
-</div>
-
-<!-- <div class="section-title">
-  <h4 id="suaraRekomendasiJudul" style="display: none;">Rekomendasi Suara Bacaan {nama surat sesuai yang dipilih pengguna}</h4>
-  <audio id="audioRekomendasiSuara" controls style="display: none;"></audio>
-  <button id="playAudioButton">Putar Audio</button>
-</div> -->
-<div class="flex">
-  <div>
-    <button id="mulaiMengajiBtn" disabled>Mulai Mengaji</button>
+    <table class="table" style="font-size: 28px">
+      <tbody>
+        <tr>
+          <th id="bacaanAnda">Bacaan Anda</th>
+        </tr>
+        <tr>
+          <td id="teksQuran"></td>
+        </tr>
+      </tbody>
+    </table>
+    <div id="teksLatin"></div>
+    <div style="margin-bottom: 20px"></div>
+    <div>
+      <h4 id="hasilBacaanJudul">Hasil Bacaan Anda</h4>
+    </div>
+    <div id="hasilBacaan"></div>
+    <div class="flex" style="margin-top: 20px">
+      <div>
+        <button id="mulaiMengajiBtn" disabled>Mulai Mengaji</button>
+      </div>
+      <div style="margin-left: 10px">
+        <button id="btnRekomendasiSuara" style="display: none">
+          Dengarkan Suara Bacaan
+        </button>
+        <audio
+          id="rekomendasiSuara"
+          controls
+          class="centered"
+          style="display: none"
+        >
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+    </div>
+    <div id="pesan" class="notifikasi"></div>
   </div>
-  <div>
-    <button id="btnRekomendasiSuara" style="display: none;">Dengarkan Bacaan</button>
-    <audio id="rekomendasiSuara" controls class="centered" style="display: none;">
-        Your browser does not support the audio element.
-    </audio>
-  </div>
-<!-- <div>
-  
-  <button id="cekBacaanBtn" disabled>Cek Bacaan</button>
-</div>  -->
-</div>
-<!-- audio untuk memuat audio rekomendasi suara -->
-<!-- <audio id="audioRekomendasiSuara" controls style="display: none;"></audio>
-<button id="rekomendasiSuaraBtn" class="enabled" style="display: none;">
-  <i class="fa fa-play"></i> Rekomendasi Suara
-</button> -->
-<div id="pesan" class="notifikasi"></div>
-</div>
-
 </section>
 
 <script>
   // const juzDropdown = document.getElementById('juzDropdown');
-  const surahDropdown = document.getElementById('surahDropdown');
-  const ayatDropdown = document.getElementById('ayatDropdown');
-  const mulaiMengajiBtn = document.getElementById('mulaiMengajiBtn');
-  const teksQuran = document.getElementById('teksQuran');
-  const teksLatin = document.getElementById('teksLatin');
-  const audioPlayer = document.getElementById('rekomendasiSuara');
-  const btnRekomendasiSuara = document.getElementById('btnRekomendasiSuara');
-  // const pesan = document.getElementById('pesan');
-  // const cekBacaanBtn = document.getElementById('cekBacaanBtn');
-  // const outputCekBacaan = document.getElementById('outputCekBacaan');
-  // const rekomendasiSuaraBtn = document.getElementById('rekomendasiSuaraBtn');
-  // const audioRekomendasiSuara = document.getElementById('audioRekomendasiSuara');
+  const surahDropdown = document.getElementById("surahDropdown");
+  const ayatDropdown = document.getElementById("ayatDropdown");
+  const mulaiMengajiBtn = document.getElementById("mulaiMengajiBtn");
+  const teksQuran = document.getElementById("teksQuran");
+  const teksLatin = document.getElementById("teksLatin");
+  const audioPlayer = document.getElementById("rekomendasiSuara");
+  const btnRekomendasiSuara = document.getElementById("btnRekomendasiSuara");
+  // const hasilBacaanJudul = document.getElementById("hasilBacaanJudul");
+  const hasilBacaan = document.getElementById("hasilBacaan");
 
-// // Event listener untuk perubahan pada dropdown Juz
-// juzDropdown.addEventListener('change', function () {
-//   const selectedJuz = juzDropdown.value;
-
-//   // Menghapus semua opsi di dropdown surah
-//   surahDropdown.innerHTML = '<option value="">Pilih Surah</option>';
-//   ayatDropdown.innerHTML = '<option value="">Pilih Ayat</option>';
-
-//   if (selectedJuz === '') {
-//     // Menonaktifkan dropdown surah dan ayat jika Juz tidak dipilih
-//     surahDropdown.disabled = true;
-//     ayatDropdown.disabled = true;
-//   } else {
-//     surahDropdown.disabled = false;
-//     ayatDropdown.disabled = true;
-
-//     // Permintaan ke API untuk mendapatkan daftar surat dalam juz yang dipilih
-//     fetch(`https://equran.id/api/v2/surat?juz=${selectedJuz}`)
-//       .then(response => response.json())
-//       .then(data => {
-//         data.data.forEach(surah => {
-//           const option = document.createElement('option');
-//           option.value = surah.nomor.toString(); // Menggunakan "nomor" dari respons API sebagai nilai opsi
-//           option.textContent = surah.namaLatin; // Menggunakan "namaLatin" dari respons API sebagai teks opsi
-//           surahDropdown.appendChild(option);
-//         });
-//       })
-//       .catch(error => {
-//         console.log('Terjadi kesalahan saat mengambil daftar surat:', error);
-//       });
-//   }
-// });
-
-
-// Fetch daftar surat dari API
-fetch('https://equran.id/api/v2/surat')
-  .then(response => response.json())
-  .then(data => {
-    // Menambahkan opsi surat ke dropdown
-    data.data.forEach(surat => {
-      const option = document.createElement('option');
-      option.value = surat.nomor;
-      option.textContent = surat.namaLatin;
-      surahDropdown.appendChild(option);
-    });
-  })
-  .catch(error => {
-    console.log('Terjadi kesalahan saat mengambil daftar surat:', error);
-  });
-
-let isFirstSurahSelected = false;
-// Ketika pengguna memilih surat
-surahDropdown.addEventListener('change', function () {
-  const selectedSurah = surahDropdown.value;
-
-  if (selectedSurah === '') {
-    isFirstSurahSelected = false;
-    ayatDropdown.disabled = true;
-    mulaiMengajiBtn.disabled = true;
-    ayatDropdown.innerHTML = '<option value="">Pilih Ayat</option>';
-
-    // Membersihkan teks Arab dan Latin
-    teksQuran.textContent = '';
-    teksLatin.textContent = '';
-
-    
-
-    //  // Membersihkan teks Arab hasil bacaan pengguna
-    // hasilBacaan.textContent = '';
-    
-  } else {
-    
-    ayatDropdown.disabled = false;
-    mulaiMengajiBtn.disabled = true;
-
-    // Fetch jumlah ayat dalam surat dari API
-    fetch(`https://equran.id/api/v2/surat/${selectedSurah}`)
-      .then(response => response.json())
-      .then(data => {
-        ayatDropdown.innerHTML = '<option value="">Pilih Ayat</option>';
-
-        data.data.ayat.forEach(ayat => {
-          const ayatOption = document.createElement('option');
-          ayatOption.value = ayat.nomorAyat;
-          ayatOption.textContent = ayat.nomorAyat;
-          ayatDropdown.appendChild(ayatOption);
-        });
-
-        // Membersihkan teks Arab dan Latin ketika surat berubah
-        teksQuran.textContent = '';
-        teksLatin.textContent = '';
-
-        // Sembunyikan tombol Mulai Mengaji dan Dengarkan Bacaan
-        mulaiMengajiBtn.style.display = 'none';
-        btnRekomendasiSuara.style.display = 'none';
-        bacaanAnda.style.display = 'none';
-        
-        // // Membersihkan teks Arab hasil bacaan pengguna
-        // hasilBacaanJudul.textContent = '';
-        // hasilBacaan.textContent = '';
-      })
-      .catch(error => {
-        console.log('Terjadi kesalahan saat mengambil jumlah ayat:', error);
+  // Fetch daftar surat dari API
+  fetch("https://equran.id/api/v2/surat")
+    .then((response) => response.json())
+    .then((data) => {
+      // Menambahkan opsi surat ke dropdown
+      data.data.forEach((surat) => {
+        const option = document.createElement("option");
+        option.value = surat.nomor;
+        option.textContent = surat.namaLatin;
+        surahDropdown.appendChild(option);
       });
-  }
-});
+    })
+    .catch((error) => {
+      console.log("Terjadi kesalahan saat mengambil daftar surat:", error);
+    });
 
-let isFirstAyatSelected = false;
-ayatDropdown.addEventListener('change', function () {
-  const selectedAyat = ayatDropdown.value;
-  console.log('selectedAyat:', selectedAyat);
-
-  if (selectedAyat === '') {
-    isFirstAyatSelected = false;
-    // Jika pengguna belum memilih ayat, sembunyikan teks Bacaan Anda dan tombol Mulai Mengaji
-    bacaanAnda.style.display = 'none';
-    mulaiMengajiBtn.style.display = 'none';
-    btnRekomendasiSuara.style.display = 'none';
-    
-    // Mengosongkan teks Al-Quran dan teks Latin
-    teksQuran.textContent = '';
-    teksLatin.textContent = '';
-
-    // // Membersihkan teks Arab hasil bacaan pengguna
-    // hasilBacaanJudul.textContent = '';
-    // hasilBacaan.textContent = '';
-  } else {
-    // Jika pengguna telah memilih ayat, tampilkan teks Bacaan Anda dan tombol Mulai Mengaji
-    bacaanAnda.style.display = 'block';
-    mulaiMengajiBtn.style.display = 'block';
-    mulaiMengajiBtn.disabled = false;
-
-    // Mengambil data teks Al-Quran dari API berdasarkan Surah dan Ayat yang dipilih
+  let isFirstSurahSelected = false;
+  // Ketika pengguna memilih surat
+  surahDropdown.addEventListener("change", function () {
     const selectedSurah = surahDropdown.value;
 
-    if (selectedSurah !== '') {
+    if (selectedSurah === "") {
+      isFirstSurahSelected = false;
+      ayatDropdown.disabled = true;
+      mulaiMengajiBtn.disabled = true;
+      ayatDropdown.innerHTML = '<option value="">Pilih Ayat</option>';
+
+      // Membersihkan teks Arab dan Latin
+      teksQuran.textContent = "";
+      teksLatin.textContent = "";
+
+      // Membersihkan teks Arab hasil bacaan pengguna
+      hasilBacaanJudul.style.display = "none";
+      hasilBacaan.textContent = "";
+    } else {
+      ayatDropdown.disabled = false;
+      mulaiMengajiBtn.disabled = true;
+
+      // Fetch jumlah ayat dalam surat dari API
       fetch(`https://equran.id/api/v2/surat/${selectedSurah}`)
-        .then(response => response.json())
-        .then(data => {
-          // Cari teks Al-Quran untuk ayat yang dipilih
-          const selectedAyatData = data.data.ayat.find(
-            ayah => ayah.nomorAyat === parseInt(selectedAyat)
-          );
+        .then((response) => response.json())
+        .then((data) => {
+          ayatDropdown.innerHTML = '<option value="">Pilih Ayat</option>';
 
-          if (selectedAyatData) {
-            const teksArabAlQuran = selectedAyatData.teksArab;
-            const teksLatinAlQuran = selectedAyatData.teksLatin;
+          data.data.ayat.forEach((ayat) => {
+            const ayatOption = document.createElement("option");
+            ayatOption.value = ayat.nomorAyat;
+            ayatOption.textContent = ayat.nomorAyat;
+            ayatDropdown.appendChild(ayatOption);
+          });
 
-            // Menampilkan teks Al-Quran dan teks Latin di halaman web
-            teksQuran.textContent = teksArabAlQuran;
-            teksLatin.textContent = teksLatinAlQuran;
+          // Membersihkan teks Arab dan Latin ketika surat berubah
+          teksQuran.textContent = "";
+          teksLatin.textContent = "";
 
-            btnRekomendasiSuara.style.display = 'none';
-            // Membersihkan teks Arab hasil bacaan pengguna
-            hasilBacaanJudul.textContent = '';
-            hasilBacaan.textContent = '';
-          } else {
-            console.log('Data teks Al-Quran tidak ditemukan.');
-            teksQuran.textContent = ''; // Mengosongkan teks Al-Quran jika data tidak ditemukan
-            teksLatin.textContent = ''; // Mengosongkan teks Latin jika data tidak ditemukan
-          }
+          // Sembunyikan tombol Mulai Mengaji dan Dengarkan Bacaan
+          mulaiMengajiBtn.style.display = "none";
+          btnRekomendasiSuara.style.display = "none";
+          bacaanAnda.style.display = "none";
+
+          // Membersihkan teks Arab hasil bacaan pengguna
+          hasilBacaanJudul.style.display = "none";
+          hasilBacaan.textContent = "";
         })
-        .catch(error => {
-          console.log('Terjadi kesalahan saat mengambil data teks Al-Quran:', error);
-          teksQuran.textContent = ''; // Mengosongkan teks Al-Quran jika terjadi kesalahan
-          teksLatin.textContent = ''; // Mengosongkan teks Latin jika terjadi kesalahan
+        .catch((error) => {
+          console.log("Terjadi kesalahan saat mengambil jumlah ayat:", error);
         });
     }
-  }
-});
+  });
 
-function startSpeechRecognition() {
+  let isFirstAyatSelected = false;
+  ayatDropdown.addEventListener("change", function () {
+    const selectedAyat = ayatDropdown.value;
+    console.log("selectedAyat:", selectedAyat);
+
+    if (selectedAyat === "") {
+      isFirstAyatSelected = false;
+      // Jika pengguna belum memilih ayat, sembunyikan teks Bacaan Anda dan tombol Mulai Mengaji
+      bacaanAnda.style.display = "none";
+      mulaiMengajiBtn.style.display = "none";
+      btnRekomendasiSuara.style.display = "none";
+
+      // Mengosongkan teks Al-Quran dan teks Latin
+      teksQuran.textContent = "";
+      teksLatin.textContent = "";
+
+      // Membersihkan teks Arab hasil bacaan pengguna
+      hasilBacaanJudul.style.display = "none";
+      hasilBacaan.textContent = "";
+    } else {
+      // Jika pengguna telah memilih ayat, tampilkan teks Bacaan Anda dan tombol Mulai Mengaji
+      bacaanAnda.style.display = "block";
+      mulaiMengajiBtn.style.display = "block";
+      mulaiMengajiBtn.disabled = false;
+
+      // Mengambil data teks Al-Quran dari API berdasarkan Surah dan Ayat yang dipilih
+      const selectedSurah = surahDropdown.value;
+
+      if (selectedSurah !== "") {
+        fetch(`https://equran.id/api/v2/surat/${selectedSurah}`)
+          .then((response) => response.json())
+          .then((data) => {
+            // Cari teks Al-Quran untuk ayat yang dipilih
+            const selectedAyatData = data.data.ayat.find(
+              (ayah) => ayah.nomorAyat === parseInt(selectedAyat)
+            );
+
+            if (selectedAyatData) {
+              const teksArabAlQuran = selectedAyatData.teksArab;
+              const teksLatinAlQuran = selectedAyatData.teksLatin;
+
+              // Menampilkan teks Al-Quran dan teks Latin di halaman web
+              teksQuran.textContent = teksArabAlQuran;
+              teksLatin.textContent = teksLatinAlQuran;
+
+              btnRekomendasiSuara.style.display = "none";
+
+              // Membersihkan teks Arab hasil bacaan pengguna
+              hasilBacaanJudul.style.display = "none";
+              hasilBacaan.textContent = "";
+            } else {
+              console.log("Data teks Al-Quran tidak ditemukan.");
+              teksQuran.textContent = "";
+              teksLatin.textContent = "";
+            }
+          })
+          .catch((error) => {
+            console.log(
+              "Terjadi kesalahan saat mengambil data teks Al-Quran:",
+              error
+            );
+            teksQuran.textContent = "";
+            teksLatin.textContent = "";
+          });
+      }
+    }
+  });
+
+  function startSpeechRecognition() {
     const recognition = new webkitSpeechRecognition();
-    recognition.lang = 'ar-AR';
+    recognition.lang = "ar-AR";
 
-    // Durasi maksimum rekaman 1 menit (60 detik)
-    recognition.maxDuration = 60 * 1000;
-    // Timeout jika tidak ada suara selama 3 detik
-    recognition.timeout = 3000;
+    recognition.maxDuration = 0;
+
+    recognition.timeout = 6000;
 
     recognition.start();
 
     recognition.onresult = async function (event) {
-    const result = event.results[0][0].transcript;
-    console.log('Hasil bacaan dari pengguna:', result);
+      const result = event.results[0][0].transcript;
 
-    // Menambahkan diacritics ke teks hasil ucapan pengguna
-    const teksDenganDiacritics = addArabicDiacritics(result);
+      // Menambahkan diakritik pada teks hasil pengguna
+      tambahkanDiacritic(result);
 
-    // Menampilkan hasil bacaan pengguna pada halaman web
-    const hasilBacaanJudul = document.getElementById('hasilBacaanJudul');
-    const hasilBacaan = document.getElementById('hasilBacaan');
-   
-
-    // Mengatur hasil bacaan pengguna pada halaman web
-    hasilBacaan.textContent = teksDenganDiacritics;
-    hasilBacaanJudul.style.display = 'block';
-    hasilBacaan.style.display = 'block';
+      //Mengatur hasil bacaan pengguna pada halaman web
+      hasilBacaan.textContent = result;
+      hasilBacaanJudul.style.display = "block";
+      hasilBacaan.style.display = "block";
 
       // Mengambil data teks Al-Quran dari API berdasarkan Surah dan Ayat yang dipilih
       const selectedSurah = surahDropdown.value;
       const selectedAyat = ayatDropdown.value;
 
-      if (selectedSurah !== '' && selectedAyat !== '') {
-      fetch(`https://equran.id/api/v2/surat/${selectedSurah}`)
-        .then(response => response.json())
-        .then(data => {
-          // Cari teks Al-Quran untuk ayat yang dipilih
-          const selectedAyatData = data.data.ayat.find(
-            ayah => ayah.nomorAyat === parseInt(selectedAyat)
-          );
+      function tambahkanDiacritic(teks) {
+        $.getJSON(
+          "http://tahadz.com/mishkal/ajaxGet",
+          { text: teks, action: "TashkeelText" },
+          function (data) {
+            const teksDenganDiacritics = data.result;
+            console.log("Teks dengan diakritik:", teksDenganDiacritics);
 
-          if (selectedAyatData) {
-            const teksArabAlQuran = selectedAyatData.teksArab;
-            // Menambahkan diacritics ke teks hasil ucapan pengguna menggunakan arabic-code-util
-            const teksDenganDiacritics = addArabicDiacritics(result);
-            const kesalahan = hitungKesalahan(teksArabAlQuran, teksDenganDiacritics);
-            const persentaseKesalahan = Math.round((kesalahan / teksArabAlQuran.length) * 100);
+            // Menampilkan hasil teks dengan diakritik pada halaman web
+            // const hasilBacaan = document.getElementById("hasilBacaan");
+            hasilBacaan.textContent = teksDenganDiacritics;
+            hasilBacaanJudul.style.display = "block";
 
-            // Menampilkan notifikasi berdasarkan persentase kesalahan
-            tampilkanNotifikasi(persentaseKesalahan);
+            // // Menemukan kesalahan dan menyoroti teks yang tidak sesuai
+            // const selectedSurah = surahDropdown.value;
+            // const selectedAyat = ayatDropdown.value;
 
-            // Menampilkan teks Al-Quran dan bacaan pengguna pada halaman web
-            teksQuran.textContent = teksArabAlQuran; // Teks Al-Quran
+            if (selectedSurah !== "" && selectedAyat !== "") {
+              fetch(`https://equran.id/api/v2/surat/${selectedSurah}`)
+                .then((response) => response.json())
+                .then((data) => {
+                  const selectedAyatData = data.data.ayat.find(
+                    (ayah) => ayah.nomorAyat === parseInt(selectedAyat)
+                  );
 
-            // Memberikan highlight pada teks Al-Quran yang tidak sesuai dengan bacaan pengguna
-            if (persentaseKesalahan > 0) {
-              highlightKesalahan(teksQuran, teksDenganDiacritics);
+                  if (selectedAyatData) {
+                    const teksArabAlQuran = selectedAyatData.teksArab;
+                    const kesalahan = hitungKesalahan(
+                      teksArabAlQuran,
+                      teksDenganDiacritics
+                    );
+                    const persentaseKesalahan = Math.round(
+                      (kesalahan / teksArabAlQuran.length) * 100
+                    );
+
+                    console.log("Proses Perhitungan Persentase Kesalahan:");
+                    console.log("Jumlah Kesalahan:", kesalahan);
+                    console.log(
+                      "Panjang Teks Al-Quran:",
+                      teksArabAlQuran.length
+                    );
+                    console.log(
+                      kesalahan,
+                      "/",
+                      teksArabAlQuran.length,
+                      "*100 =",
+                      persentaseKesalahan,
+                      "%"
+                    );
+
+                    // Menampilkan notifikasi berdasarkan persentase kesalahan
+                    tampilkanNotifikasi(persentaseKesalahan);
+
+                    // Menampilkan teks Al-Quran dan bacaan pengguna pada halaman web
+                    teksQuran.textContent = teksArabAlQuran;
+                  } else {
+                    console.log("Data teks Al-Quran tidak ditemukan.");
+                  }
+                })
+                .catch((error) => {
+                  console.log(
+                    "Terjadi kesalahan saat mengambil data teks Al-Quran:",
+                    error
+                  );
+                });
             }
-
-            // Fungsi untuk memberikan highlight pada teks Al-Quran yang tidak sesuai dengan bacaan pengguna
-            function highlightKesalahan(teksAsli, teksPengguna) {
-              const teksAsliArray = teksAsli.textContent.split('');
-              let hasilHighlight = '';
-              for (let i = 0; i < teksAsliArray.length; i++) {
-                if (teksAsliArray[i] !== teksPengguna[i]) {
-                  hasilHighlight += `<span style="color: red">${teksAsliArray[i]}</span>`;
-                } else {
-                  hasilHighlight += teksAsliArray[i];
-                }
-              }
-              teksAsli.innerHTML = hasilHighlight;
-            }
-          } else {
-            console.log('Data teks Al-Quran tidak ditemukan.');
           }
-        })
-        .catch(error => {
-          console.log('Terjadi kesalahan saat mengambil data teks Al-Quran:', error);
-        });
+        );
       }
     };
 
-  // Event saat rekaman dihentikan karena mencapai durasi maksimum
-  recognition.onaudiostart = function (event) {
-    console.log('Rekaman dimulai');
-  };
+    // Event saat rekaman dihentikan karena mencapai durasi maksimum
+    recognition.onaudiostart = function (event) {
+      console.log("Rekaman dimulai");
+    };
 
-  // Event saat rekaman dihentikan karena mencapai durasi maksimum
-  recognition.onaudioend = function (event) {
-    console.log('Rekaman berakhir');
-  };
+    // Event saat rekaman dihentikan karena mencapai durasi maksimum
+    recognition.onaudioend = function (event) {
+      console.log("Rekaman berakhir");
+    };
 
-  // Event saat rekaman dihentikan karena tidak ada suara selama 3 detik
-  recognition.onspeechend = function (event) {
-    console.log('Rekaman berhenti karena tidak ada suara');
-    recognition.stop();
-  };
+    // Event saat rekaman dihentikan karena tidak ada suara selama 3 detik
+    recognition.onspeechend = function (event) {
+      console.log("Rekaman berhenti karena tidak ada suara");
+      recognition.stop();
+    };
 
-  // Event saat terjadi error pada speech recognition
-  recognition.onerror = function (event) {
-    console.log('Terjadi kesalahan pada speech recognition:', event.error);
-    recognition.stop();
-  };
-}
-
-let isFirstUsage = true;
-
-// Fungsi untuk menampilkan notifikasi sebagai pop-up
-function tampilkanNotifikasi(persentase) {
-  let notifikasiTitle = '';
-  let notifikasiText = '';
-  const selectedSurah = surahDropdown.value;
-  const selectedAyat = ayatDropdown.value;
-
-  if (persentase === 0) {
-    notifikasiTitle = 'Masyaallah, bacaanmu 100% benar!';
-    notifikasiText = 'Selamat! Bacaanmu sempurna.';
-  } else {
-    notifikasiTitle = `Terdapat ${persentase}% perbedaan dengan bacaanmu`;
-    notifikasiText = 'Mari kita perbaiki bersama-sama.';
+    // Event saat terjadi error pada speech recognition
+    recognition.onerror = function (event) {
+      console.log("Terjadi kesalahan pada speech recognition:", event.error);
+      recognition.stop();
+    };
   }
 
-  // Menampilkan notifikasi sebagai pop-up
-  const confirmNotifikasi = window.confirm(`${notifikasiTitle}\n${notifikasiText}`);
-  if (confirmNotifikasi) {
-    if (isFirstUsage) {
-      btnRekomendasiSuara.style.display = 'block';
-      isFirstUsage = false; // Setelah penggunaan pertama, atur flag menjadi false
-      
-    }
+  let isFirstUsage = true;
 
-    //menampilkan button dengarkan bacaan
-    btnRekomendasiSuara.style.display = 'block';
-    
-    // Mengatur fungsi untuk memutar audio saat tombol "Dengarkan Bacaan" ditekan
-    btnRekomendasiSuara.addEventListener('click', function() {
-      putarRekomendasiSuara(selectedSurah, selectedAyat);
-    });
-  }
-}
+  // Fungsi untuk menampilkan notifikasi sebagai pop-up
+  function tampilkanNotifikasi(persentase) {
+    let notifikasiTitle = "";
+    let notifikasiText = "";
+    const selectedSurah = surahDropdown.value;
+    const selectedAyat = ayatDropdown.value;
 
-
-// Fungsi untuk menambahkan diacritics ke teks Arab
-function addArabicDiacritics(text) {
-  // Map untuk menyimpan karakter Arab dan diacritic yang sesuai
-  const diacriticsMap = new Map([
-    ['ا', 'ً'], // Fathah
-    ['و', 'ٌ'], // Dammah
-    ['ي', 'ٍ'], // Kasrah
-    // Tambahkan karakter Arab lainnya dengan diacritic yang sesuai
-    // ...
-  ]);
-
-  let result = '';
-  for (let i = 0; i < text.length; i++) {
-    const char = text[i];
-    const diacritic = diacriticsMap.get(char);
-
-    if (diacritic) {
-      // Jika karakter Arab memiliki diacritic, tambahkan diacritic ke teks
-      result += diacritic;
+    if (persentase === 0) {
+      notifikasiTitle = "Masyaallah, bacaanmu 100% benar!";
+      notifikasiText = "Selamat! Bacaanmu sempurna.";
     } else {
-      // Jika tidak, tambahkan karakter Arab tanpa diacritic ke teks
-      result += char;
+      notifikasiTitle = `Terdapat ${persentase}% kesalahan`;
+      notifikasiText = "Mari lihat kesalahan bacaannya.";
     }
-  }
 
-  return result; // Kembalikan teks yang sudah ditambahkan bacaan vokal atau Arab diacritic
-}
-
-// // Fungsi untuk menghapus diacritics dari teks Arab
-// function removeArabicDiacritics(text) {
-//   return text.replace(/[\u064B-\u065F]/g, '');
-// }
-
-// Fungsi untuk menghitung jumlah kesalahan dalam bacaan pengguna
-// function hitungKesalahan(bacaanAsli, bacaanPengguna) {
-//   // Pastikan bacaanAsli dan bacaanPengguna memiliki nilai sebelum melakukan perhitungan
-//   if (!bacaanAsli || !bacaanPengguna) {
-//     return 0;
-//   }
-
-//   console.log('bacaanAsli:', bacaanAsli);
-//   console.log('bacaanPengguna:', bacaanPengguna);
-//   console.log('------------------');
-//   console.log('Proses menginisialisasi:');
-
-//   const m = bacaanAsli.length;
-//   const n = bacaanPengguna.length;
-
-//   // Inisialisasi matriks dengan nilai awal
-//   const dp = [];
-//   for (let i = 0; i <= m; i++) {
-//     dp[i] = [];
-//     dp[i][0] = i;
-//   }
-
-//   for (let j = 0; j <= n; j++) {
-//     dp[0][j] = j;
-//   }
-
-//   console.log('Matriks dengan perhitungan jarak Levenshtein:');
-
-//   // Mengisi matriks dengan perhitungan jarak Levenshtein
-//   for (let i = 1; i <= m; i++) {
-//     for (let j = 1; j <= n; j++) {
-//       if (bacaanAsli[i - 1] === bacaanPengguna[j - 1]) {
-//         dp[i][j] = dp[i - 1][j - 1];
-//       } else {
-//         dp[i][j] = 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
-//       }
-//     }
-//   }
-
-//   // Tampilkan matriks
-//   for (let i = 0; i <= m; i++) {
-//     let row = '';
-//     for (let j = 0; j <= n; j++) {
-//       row += dp[i][j] + '\t';
-//     }
-//     console.log(row);
-//   }
-
-//   console.log('----------');
-//   console.log('Hasil jumlah kesalahan:', dp[m][n]);
-
-//   // Menghitung jumlah kesalahan
-//   const jumlahKesalahan = dp[m][n];
-//   return jumlahKesalahan;
-// }
-
-// function hitungKesalahan(bacaanAsli, bacaanPengguna) {
-  function hitungKesalahan(bacaanAsli, bacaanPengguna) {
-  // Pastikan bacaanAsli dan bacaanPengguna memiliki nilai sebelum melakukan perhitungan
-  if (!bacaanAsli || !bacaanPengguna) {
-    return 0;
-  }
-
-  console.log('bacaanAsli:', bacaanAsli);
-  console.log('bacaanPengguna:', bacaanPengguna);
-  console.log('------------------');
-  console.log('Proses menginisialisasi:');
-
-  const m = bacaanAsli.length;
-  const n = bacaanPengguna.length;
-
-  // Inisialisasi matriks dengan nilai awal
-  const dp = [];
-  for (let i = 0; i <= m; i++) {
-    dp[i] = [];
-    dp[i][0] = i;
-  }
-
-  for (let j = 0; j <= n; j++) {
-    dp[0][j] = j;
-  }
-
-  console.log('Matriks dengan perhitungan jarak Levenshtein:');
-
-  // Tampilan header untuk huruf pada bacaanPengguna
-let header = '';
-for (let i = 0; i <= n; i++) {
-  header += `${bacaanPengguna[i]}\t`;
-}
-console.log(header);
-  
-  // Mengisi matriks dengan perhitungan jarak Levenshtein
-  for (let i = 1; i <= m; i++) {
-    let row = `${bacaanAsli[i - 1]}\t`;
-
-    for (let j = 1; j <= n; j++) {
-      if (bacaanAsli[i - 1] === bacaanPengguna[j - 1]) {
-        dp[i][j] = dp[i - 1][j - 1];
-      } else {
-        dp[i][j] = 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
+    // Menampilkan notifikasi sebagai pop-up
+    const confirmNotifikasi = window.confirm(
+      `${notifikasiTitle}\n${notifikasiText}`
+    );
+    if (confirmNotifikasi) {
+      if (isFirstUsage) {
+        btnRekomendasiSuara.style.display = "block";
+        isFirstUsage = false; // Setelah penggunaan pertama, atur flag menjadi false
       }
-      row += `${dp[i][j]}\t`;
-    }
-    console.log(row);
-  }
 
-  console.log('----------');
-  console.log('Hasil jumlah kesalahan:', dp[m][n]);
+      //menampilkan button dengarkan bacaan
+      btnRekomendasiSuara.style.display = "block";
 
-  // Menghitung jumlah kesalahan
-  const jumlahKesalahan = dp[m][n];
-  return jumlahKesalahan;
-}
-
-function putarRekomendasiSuara(selectedSurah, selectedAyat) {
-  if (selectedSurah && selectedAyat) {
-    // Anda harus mengambil URL audio yang sesuai dengan pilihan pengguna dari API
-    // dan memasukkannya ke dalam elemen audio
-    fetch(`https://equran.id/api/v2/surat/${selectedSurah}`)
-      .then(response => response.json())
-      .then(data => {
-        const selectedAyatData = data.data.ayat.find(
-          ayat => ayat.nomorAyat === parseInt(selectedAyat)
-        );
-          
-        if (selectedAyatData && selectedAyatData.audio) {
-          // Gantilah "05" dengan yang sesuai dengan kebutuhan Anda
-          const audioUrl = selectedAyatData.audio["05"];
-          if (audioUrl) {
-            audioPlayer.src = audioUrl;
-            audioPlayer.play();
-          } else {
-            console.log('URL audio tidak ditemukan.');
-          }
-        } else {
-          console.log('Data audio ayat tidak ditemukan.');
-        }
-      })
-      .catch(error => {
-        console.error('Terjadi kesalahan saat mengambil data teks Al-Quran:', error);
+      // Mengatur fungsi untuk memutar audio saat tombol "Dengarkan Bacaan" ditekan
+      btnRekomendasiSuara.addEventListener("click", function () {
+        putarRekomendasiSuara(selectedSurah, selectedAyat);
       });
+    }
   }
-  // console.log(selectedAyatData);
-}
 
-// function putarRekomendasiSuara(selectedSurah, selectedAyat) {
-//   const rekomendasiSuara = document.getElementById('rekomendasiSuara');
-//   rekomendasiSuara.style.display = 'none'; // Sembunyikan pemutar audio sementara
+  // // Mendapatkan hasil bacaan dari elemen HTML
+  // const hasilBacaanElement = document.getElementById('hasilBacaan');
+  // const hasilBacaan = hasilBacaanElement.textContent;
 
-//   if (selectedSurah !== '' && selectedAyat !== '') {
-//     // Konversi selectedAyat menjadi tiga digit dengan menggabungkannya dengan '00'
-//     const formattedAyat = String(selectedAyat).padStart(3, '0');
+  // // Mendapatkan hasil bacaan dari elemen HTML
+  // const hasilBacaanElement = document.getElementById('result');
+  // const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+  // // Mengirim data hasil bacaan ke backend menggunakan fetch
+  // fetch('/haracatProses/', {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //     'X-CSRFToken': csrftoken,
+  //   },
+  //   body: JSON.stringify({ hasilBacaan: hasilBacaan }),
+  // })
+  //   .then(response => response.json())
+  //   .then(data => {
+  //     // Memperbarui elemen HTML dengan hasil proses dari backend
+  //     hasilBacaanElement.textContent = data.teksDenganDiacritics;
+  //   })
+  //   .catch(error => {
+  //     console.error('Terjadi kesalahan:', error);
+  //   });
 
-//     const audioUrl = `https://equran.nos.wjv-1.neo.id/audio-partial/Misyari-Rasyid-Al-Afasi/${selectedSurah}${formattedAyat}.mp3`;
+  // // Fungsi untuk menambahkan diacritics ke teks Arab
+  // function addArabicDiacritics(text) {
+  //   // Map untuk menyimpan karakter Arab dan diacritic yang sesuai
+  //   const diacriticsMap = new Map([
+  //     ['ا', 'ً'], // Fathah
+  //     ['و', 'ٌ'], // Dammah
+  //     ['ي', 'ٍ'], // Kasrah
+  //     // Tambahkan karakter Arab lainnya dengan diacritic yang sesuai
+  //     // ...
+  //   ]);
 
-//     rekomendasiSuara.title = `Rekomendasi Suara Bacaan (Surah ${selectedSurah} Ayat ${selectedAyat})`;
-//     rekomendasiSuara.src = audioUrl;
-//     rekomendasiSuara.style.display = 'block'; // Tampilkan pemutar audio
-//   } else {
-//     rekomendasiSuara.style.display = 'none'; // Sembunyikan pemutar audio jika tidak ada surah atau ayat yang dipilih
-//   }
-// }
+  //   let result = '';
+  //   for (let i = 0; i < text.length; i++) {
+  //     const char = text[i];
+  //     const diacritic = diacriticsMap.get(char);
 
+  //     if (diacritic) {
+  //       // Jika karakter Arab memiliki diacritic, tambahkan diacritic ke teks
+  //       result += diacritic;
+  //     } else {
+  //       // Jika tidak, tambahkan karakter Arab tanpa diacritic ke teks
+  //       result += char;
+  //     }
+  //   }
 
-// document.addEventListener("DOMContentLoaded", function() {
-//   // Fungsi untuk mengambil data audio dari API
-// function ambilDataAudio() {
-//   const suratDropdown = document.getElementById('suratDropdown');
-//   const ayatDropdown = document.getElementById('ayatDropdown');
+  //   return result; // Kembalikan teks yang sudah ditambahkan bacaan vokal atau Arab diacritic
+  // }
 
-//   const selectedSuratIndex = suratDropdown.selectedIndex;
-//   const selectedAyatIndex = ayatDropdown.selectedIndex;
+  // // Fungsi untuk menghapus diacritics dari teks Arab
+  // function removeArabicDiacritics(text) {
+  //   return text.replace(/[\u064B-\u065F]/g, '');
+  // }
 
-//   const selectedSurat = suratDropdown.options[selectedSuratIndex].value;
-//   const selectedAyat = ayatDropdown.options[selectedAyatIndex].value;
+  // Fungsi untuk menghitung jumlah kesalahan dalam bacaan pengguna
+  // function hitungKesalahan(bacaanAsli, bacaanPengguna) {
+  //   // Pastikan bacaanAsli dan bacaanPengguna memiliki nilai sebelum melakukan perhitungan
+  //   if (!bacaanAsli || !bacaanPengguna) {
+  //     return 0;
+  //   }
 
-//   // Buat URL permintaan ke API
-//   const apiURL = `https://equran.id/api/v2/surat/${selectedSurat}`;
+  //   console.log('bacaanAsli:', bacaanAsli);
+  //   console.log('bacaanPengguna:', bacaanPengguna);
+  //   console.log('------------------');
+  //   console.log('Proses menginisialisasi:');
 
-//   fetch(apiURL)
-//     .then((response) => {
-//       if (!response.ok) {
-//         throw new Error('Gagal mengambil data audio.');
-//       }
-//       return response.json();
-//     })
-//     .then((data) => {
-//       // Ambil audio dari respons API (gunakan nomor 5)
-//       const audioURL = data.audio["05"];
+  //   const m = bacaanAsli.length;
+  //   const n = bacaanPengguna.length;
 
-//       tampilkanAudioRekomendasiSuara(`${selectedSurat} Ayat ${selectedAyat}`, audioURL);
-//     })
-//     .catch((error) => {
-//       console.error('Terjadi kesalahan:', error);
-//     });
-// }
-// });
+  //   // Inisialisasi matriks dengan nilai awal
+  //   const dp = [];
+  //   for (let i = 0; i <= m; i++) {
+  //     dp[i] = [];
+  //     dp[i][0] = i;
+  //   }
 
+  //   for (let j = 0; j <= n; j++) {
+  //     dp[0][j] = j;
+  //   }
 
-// // Event listener untuk tombol Putar Audio
-// document.getElementById('playAudioButton').addEventListener('click', ambilDataAudio);
+  //   console.log('Matriks dengan perhitungan jarak Levenshtein:');
 
-// // Fungsi untuk menyoroti kesalahan pada teks pengguna
-// function highlightKesalahan(bacaanAsli, bacaanPengguna, jumlahKesalahan) {
-//   const wordsAsli = bacaanAsli.trim().split(' ');
-//   const wordsPengguna = bacaanPengguna.trim().split(' ');
+  //   // Mengisi matriks dengan perhitungan jarak Levenshtein
+  //   for (let i = 1; i <= m; i++) {
+  //     for (let j = 1; j <= n; j++) {
+  //       if (bacaanAsli[i - 1] === bacaanPengguna[j - 1]) {
+  //         dp[i][j] = dp[i - 1][j - 1];
+  //       } else {
+  //         dp[i][j] = 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
+  //       }
+  //     }
+  //   }
 
-//   let highlightedText = '';
+  //   // Tampilkan matriks
+  //   for (let i = 0; i <= m; i++) {
+  //     let row = '';
+  //     for (let j = 0; j <= n; j++) {
+  //       row += dp[i][j] + '\t';
+  //     }
+  //     console.log(row);
+  //   }
 
-//   for (let i = 0; i < wordsAsli.length; i++) {
-//     if (wordsAsli[i] !== wordsPengguna[i]) {
-//       highlightedText += ` <span class="badge text-bg-danger"> ${wordsPengguna[i]}</span>`;
-//     } else {
-//       highlightedText += `${wordsPengguna[i]}`;
-//     }
-//   }
+  //   console.log('----------');
+  //   console.log('Hasil jumlah kesalahan:', dp[m][n]);
 
-//   // Tambahkan warna merah pada teks yang sesuai dengan jumlah kesalahan
-//   const kesalahanIndexes = getKesalahanIndexes(bacaanAsli, bacaanPengguna);
-//   kesalahanIndexes.reverse()
-//   console.log(kesalahanIndexes)
-//   for (const index of kesalahanIndexes) {
-//     const word = wordsPengguna[index];
-//     console.log(word)
-    
-//     highlightedText = highlightedText.replace(word, `<span class="badge text-bg-danger">${word}</span>`);
-//   }
+  //   // Menghitung jumlah kesalahan
+  //   const jumlahKesalahan = dp[m][n];
+  //   return jumlahKesalahan;
+  // }
 
-//   return highlightedText.trim();
-// }
+  // Fungsi untuk menghitung jumlah kesalahan dalam bacaan pengguna
+  function hitungKesalahan(teksArabAlQuran, teksDenganDiacritics) {
+    // Pastikan teksArabAlQuran dan bacaan pengguna memiliki nilai sebelum melakukan perhitungan
+    if (!teksArabAlQuran.trim() || !teksDenganDiacritics.trim()) {
+      return 0;
+    }
+    const arabAPI = teksArabAlQuran.replace(
+      /([^\u0621-\u063A\u0641-\u064A\u0660-\u0669a-zA-Z 0-9])/g,
+      ""
+    );
+    const userLatin = teksDenganDiacritics.replace(
+      /([^\u0621-\u063A\u0641-\u064A\u0660-\u0669a-zA-Z 0-9])/g,
+      ""
+    );
 
-// // Fungsi untuk mendapatkan indeks kata-kata yang salah pada teks pengguna
-// function getKesalahanIndexes(bacaanAsli, bacaanPengguna) {
-//   const wordsAsli = bacaanAsli.trim().split(' ');
-//   const wordsPengguna = bacaanPengguna.trim().split(' ');
+    console.log("bacaan asli:", arabAPI);
+    console.log("bacaan pengguna:", userLatin);
+    console.log("------------------");
+    console.log("Proses menginisialisasi:");
 
-//   const kesalahanIndexes = [];
-//   for (let i = 0; i < wordsAsli.length; i++) {
-//     if (wordsAsli[i] !== wordsPengguna[i]) {
-//       kesalahanIndexes.push(i);
-//     }
-//   }
+    const m = arabAPI.length;
+    const n = userLatin.length;
 
-//   return kesalahanIndexes;
-// }
+    // Initialize the matrix with initial values
+    const dp = [];
+    for (let i = 0; i <= m; i++) {
+      dp[i] = [];
+      dp[i][0] = i;
+    }
 
-// // Fungsi untuk melakukan speech recognition
-// function startSpeechRecognition() {
-//   const recognition = new webkitSpeechRecognition();
-//   recognition.lang = 'ar-AR';
+    for (let j = 0; j <= n; j++) {
+      dp[0][j] = j;
+    }
 
-//    // Durasi maksimum rekaman 1 menit (60 detik)
-//    recognition.maxDuration = 60 * 1000;
-//   // Timeout jika tidak ada suara selama 3 detik
-//   recognition.timeout = 3000;
+    console.log("Matriks dengan perhitungan jarak Levenshtein:");
 
-//   recognition.start();
+    // Tampilan header untuk huruf pada bacaan pengguna
+    let header = "\t";
+    for (let i = 0; i <= n; i++) {
+      header += `${userLatin[i]}\t`;
+    }
+    console.log(header);
 
-//   recognition.onresult = function (event) {
-//     const result = event.results[0][0].transcript;
-//     const arabicText = addArabicDiacritics(result);
+    // Mengisi matriks dengan perhitungan jarak Levenshtein
+    for (let i = 0; i <= m; i++) {
+      let row = `${i === 0 ? " " : arabAPI[i - 1]}\t`;
 
-//     teksQuran.innerText = arabicText;
-//     cekBacaanBtn.disabled = false;
+      for (let j = 0; j <= n; j++) {
+        if (i === 0 && j === 0) {
+          row += "0\t";
+          continue;
+        }
 
-//     // Menghapus notifikasi kesalahan sebelumnya (jika ada)
-//     const notifikasi = document.querySelector('.notifikasi');
-//     if (notifikasi) {
-//       notifikasi.remove();
-//     }
+        if (i === 0) {
+          row += `${j}\t`;
+          continue;
+        }
 
-//     // Event saat rekaman dihentikan karena mencapai durasi maksimum
-//   recognition.onaudiostart = function (event) {
-//     console.log('Rekaman dimulai');
-//   };
+        if (j === 0) {
+          row += `${i}\t`;
+          continue;
+        }
 
-//   // Event saat rekaman dihentikan karena mencapai durasi maksimum
-//   recognition.onaudioend = function (event) {
-//     console.log('Rekaman berakhir');
-//   };
+        if (arabAPI[i - 1] === userLatin[j - 1]) {
+          dp[i][j] = dp[i - 1][j - 1];
+        } else {
+          dp[i][j] = 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
+        }
+        row += `${dp[i][j]}\t`;
+      }
+      console.log(row);
+    }
 
-//   // Event saat rekaman dihentikan karena tidak ada suara selama 3 detik
-//   recognition.onspeechend = function (event) {
-//     console.log('Rekaman berhenti karena tidak ada suara');
-//     recognition.stop();
-//   };
+    console.log("----------");
 
-//   // Event saat terjadi error pada speech recognition
-//   recognition.onerror = function (event) {
-//     console.log('Terjadi kesalahan pada speech recognition:', event.error);
-//     recognition.stop();
-//   };
+    // Menghitung jumlah kesalahan
+    const jumlahKesalahan = dp[m][n] - 1;
+    return jumlahKesalahan;
+  }
 
-//     // Menambahkan event listener pada tombol "Cek Bacaan" setelah suara terdeteksi
-//     cekBacaanBtn.addEventListener('click', cekBacaanHandler, { once: true });
-//   };
-// }
+  function putarRekomendasiSuara(selectedSurah, selectedAyat) {
+    if (selectedSurah && selectedAyat) {
+      fetch(`https://equran.id/api/v2/surat/${selectedSurah}`)
+        .then((response) => response.json())
+        .then((data) => {
+          const selectedAyatData = data.data.ayat.find(
+            (ayat) => ayat.nomorAyat === parseInt(selectedAyat)
+          );
 
-// // Fungsi untuk menampilkan teks bacaan dari Quran API ke dalam kolom output
-// function tampilkanTeksBacaan(bacaan) {
-//   const outputCekBacaan = document.getElementById('outputCekBacaan');
-//   outputCekBacaan.value = bacaan;
-// }
+          if (selectedAyatData && selectedAyatData.audio) {
+            // Gantilah "05" dengan yang sesuai dengan kebutuhan Anda
+            const audioUrl = selectedAyatData.audio["05"];
+            if (audioUrl) {
+              audioPlayer.src = audioUrl;
+              audioPlayer.play();
+            } else {
+              console.log("URL audio tidak ditemukan.");
+            }
+          } else {
+            console.log("Data audio ayat tidak ditemukan.");
+          }
+        })
+        .catch((error) => {
+          console.error(
+            "Terjadi kesalahan saat mengambil data teks Al-Quran:",
+            error
+          );
+        });
+    }
+  }
 
-// // Fungsi untuk mendapatkan data audio
-// function getAudioRekomendasiSuara() {
-//   const selectedJuz = juzDropdown.value;
-//   const selectedSurah = surahDropdown.value;
-//   const selectedAyat = ayatDropdown.value;
-
-//   const rekomendasiSuaraBtn = document.getElementById('rekomendasiSuaraBtn');
-//   const audioPlayer = document.getElementById('audioRekomendasiSuara');
-
-//   if (selectedJuz !== '' && selectedSurah !== '' && selectedAyat !== '') {
-//     fetch(`https://quran-api.santrikoding.com/api/surah/${selectedSurah}`)
-//       .then(response => response.json())
-//       .then(data => {
-//         // Dapatkan URL audio dari surah, juz, dan ayat yang dipilih
-//         const audioUrl = `https://quran-api.santrikoding.com/api/surah/${selectedSurah}/${selectedAyat}`;
-
-//         if (audioUrl) {
-//           // Atur sumber audio untuk audio player
-//           audioPlayer.src = audioUrl;
-
-//           // Aktifkan tombol "Rekomendasi Suara" dan atur audio player dengan audio dari API
-//           rekomendasiSuaraBtn.style.display = 'block';
-//           rekomendasiSuaraBtn.addEventListener('click', function () {
-//             audioPlayer.play();
-//           });
-//         } else {
-//           console.log('Tidak ada URL audio yang tersedia.');
-//         }
-//       })
-//       .catch(error => {
-//         console.log('Terjadi kesalahan saat mengambil data audio:', error);
-//       });
-//   }
-// }
-
-
-// function getAudioRekomendasiSuara() {
-//   const selectedSurah = surahDropdown.value;
-//   const selectedAyat = ayatDropdown.value;
-
-//   const rekomendasiSuaraBtn = document.getElementById('rekomendasiSuaraBtn');
-//   const audioPlayer = document.getElementById('audioRekomendasiSuara');
-
-//   if (selectedSurah !== '' && selectedAyat !== '') {
-//     fetch(`https://quran-api.santrikoding.com/api/surah`)
-//       .then(response => response.json())
-//       .then(data => {
-//         // Cari data surah yang sesuai dengan pilihan pengguna
-//         const selectedSurahData = data.find(surah => surah.nomor === parseInt(selectedSurah));
-//         if (!selectedSurahData) {
-//           console.log('Surah tidak ditemukan.');
-//           return;
-//         }
-
-//         // Dapatkan URL audio dari surah dan ayat yang dipilih
-//         const audioUrl = selectedSurahData.audio;
-
-//         if (audioUrl) {
-//           // Atur sumber audio untuk audio player
-//           audioPlayer.src = audioUrl;
-
-//           // Aktifkan tombol "Rekomendasi Suara" dan atur audio player dengan audio dari API
-//           rekomendasiSuaraBtn.style.display = 'block';
-//           rekomendasiSuaraBtn.addEventListener('click', function () {
-//             audioPlayer.play();
-//           });
-//         } else {
-//           console.log('Tidak ada URL audio yang tersedia.');
-//         }
-//       })
-//       .catch(error => {
-//         console.log('Terjadi kesalahan saat mengambil data audio:', error);
-//       });
-//   }
-// }
-
-// // Event handler untuk tombol "Cek Bacaan"
-// function cekBacaanHandler() {
-//     const selectedSurah = surahDropdown.value;
-//     const selectedAyat = ayatDropdown.value;
-
-//     if (selectedSurah !== '' && selectedAyat !== '') {
-//       fetch(`https://api.alquran.cloud/v1/surah/${selectedSurah}/quran-uthmani`)
-//         .then(response => response.json())
-//         .then(surahData => {
-//           const selectedAyahText = surahData.data.ayahs[selectedAyat - 1].text;
-
-//           // Menghapus notifikasi kesalahan sebelumnya (jika ada)
-//           const notifikasi = document.querySelector('.notifikasi');
-//           if (notifikasi) {
-//             notifikasi.remove();
-//           }
-
-//           // Membandingkan bacaan pengguna dengan teks ayat dari Quran API
-//           const bacaanPengguna = teksQuran.innerText;
-//           const bacaanAsli = selectedAyahText;
-//           const jumlahKesalahan = hitungKesalahan(bacaanAsli, bacaanPengguna);
-
-//           // Menampilkan notifikasi jumlah kesalahan sebagai pop-up
-//           if (jumlahKesalahan > 0) {
-//             window.alert(`Terdapat ${jumlahKesalahan} kesalahan pada bacaanmu`);
-//           } else {
-//             window.alert('Tidak ada kesalahan pada bacaanmu');
-//           }
-
-//           // Menampilkan teks yang sudah ditandai dengan warna merah di elemen input
-//           outputCekBacaan.innerHTML = selectedAyahText;
-
-//           // Menampilkan tombol "Rekomendasi Suara"
-//           rekomendasiSuaraBtn.style.display = 'block';
-//           getAudioRekomendasiSuara();
-//         })
-
-//         .catch(error => {
-//           console.log('Terjadi kesalahan saat mengambil teks Al-Quran:', error);
-//         });
-//     }
-//   }
-
-mulaiMengajiBtn.addEventListener('click', startSpeechRecognition);
-// cekBacaanBtn.addEventListener('click', cekBacaanHandler);
+  mulaiMengajiBtn.addEventListener("click", startSpeechRecognition);
 </script>

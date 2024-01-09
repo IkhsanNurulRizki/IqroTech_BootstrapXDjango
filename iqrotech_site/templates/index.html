@@ -2,12 +2,11 @@
 <html lang="en">
 {% include "head.html" %}
 <body>
-
+  {% csrf_token %}
   {% include "navbar.html" %}
   {% include "hero/hero.html" %}
 
   <main id="main">
-    <!-- {% csrf_token %} -->
     {% include "langkah/langkah.html" %}
     {% include "inti/inti.html" %}
     {% include "tentang/tentang.html" %}
