@@ -473,64 +473,6 @@
     }
   }
 
-  // // Mendapatkan hasil bacaan dari elemen HTML
-  // const hasilBacaanElement = document.getElementById('hasilBacaan');
-  // const hasilBacaan = hasilBacaanElement.textContent;
-
-  // // Mendapatkan hasil bacaan dari elemen HTML
-  // const hasilBacaanElement = document.getElementById('result');
-  // const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-  // // Mengirim data hasil bacaan ke backend menggunakan fetch
-  // fetch('/haracatProses/', {
-  //   method: 'POST',
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //     'X-CSRFToken': csrftoken,
-  //   },
-  //   body: JSON.stringify({ hasilBacaan: hasilBacaan }),
-  // })
-  //   .then(response => response.json())
-  //   .then(data => {
-  //     // Memperbarui elemen HTML dengan hasil proses dari backend
-  //     hasilBacaanElement.textContent = data.teksDenganDiacritics;
-  //   })
-  //   .catch(error => {
-  //     console.error('Terjadi kesalahan:', error);
-  //   });
-
-  // // Fungsi untuk menambahkan diacritics ke teks Arab
-  // function addArabicDiacritics(text) {
-  //   // Map untuk menyimpan karakter Arab dan diacritic yang sesuai
-  //   const diacriticsMap = new Map([
-  //     ['ا', 'ً'], // Fathah
-  //     ['و', 'ٌ'], // Dammah
-  //     ['ي', 'ٍ'], // Kasrah
-  //     // Tambahkan karakter Arab lainnya dengan diacritic yang sesuai
-  //     // ...
-  //   ]);
-
-  //   let result = '';
-  //   for (let i = 0; i < text.length; i++) {
-  //     const char = text[i];
-  //     const diacritic = diacriticsMap.get(char);
-
-  //     if (diacritic) {
-  //       // Jika karakter Arab memiliki diacritic, tambahkan diacritic ke teks
-  //       result += diacritic;
-  //     } else {
-  //       // Jika tidak, tambahkan karakter Arab tanpa diacritic ke teks
-  //       result += char;
-  //     }
-  //   }
-
-  //   return result; // Kembalikan teks yang sudah ditambahkan bacaan vokal atau Arab diacritic
-  // }
-
-  // // Fungsi untuk menghapus diacritics dari teks Arab
-  // function removeArabicDiacritics(text) {
-  //   return text.replace(/[\u064B-\u065F]/g, '');
-  // }
-
   // Fungsi untuk menghitung jumlah kesalahan dalam bacaan pengguna
   // function hitungKesalahan(bacaanAsli, bacaanPengguna) {
   //   // Pastikan bacaanAsli dan bacaanPengguna memiliki nilai sebelum melakukan perhitungan
