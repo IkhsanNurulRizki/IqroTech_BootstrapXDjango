@@ -597,18 +597,18 @@
       /([^\u0621-\u063A\u0641-\u064A\u0660-\u0669a-zA-Z 0-9])/g,
       ""
     );
-    const userLatin = teksDenganDiacritics.replace(
+    const teksPengguna = teksDenganDiacritics.replace(
       /([^\u0621-\u063A\u0641-\u064A\u0660-\u0669a-zA-Z 0-9])/g,
       ""
     );
 
     console.log("bacaan asli:", arabAPI);
-    console.log("bacaan pengguna:", userLatin);
+    console.log("bacaan pengguna:", teksPengguna);
     console.log("------------------");
     console.log("Proses menginisialisasi:");
 
     const m = arabAPI.length;
-    const n = userLatin.length;
+    const n = teksPengguna.length;
 
     // inisiai matriks dengan nilai awal
     const dp = [];
@@ -626,7 +626,7 @@
     // Tampilan header untuk huruf pada bacaan pengguna
     let header = "\t";
     for (let i = 0; i <= n; i++) {
-      header += `${userLatin[i]}\t`;
+      header += `${teksPengguna[i]}\t`;
     }
     console.log(header);
 
@@ -650,7 +650,7 @@
           continue;
         }
 
-        if (arabAPI[i - 1] === userLatin[j - 1]) {
+        if (arabAPI[i - 1] === teksPengguna[j - 1]) {
           dp[i][j] = dp[i - 1][j - 1];
         } else {
           dp[i][j] = 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
