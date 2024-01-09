@@ -5,8 +5,8 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index),
-    path('hero/', include('iqrotech_site.hero.urls')),
-    path('langkah/', include('iqrotech_site.langkah.urls')),
-    path('inti/', include('iqrotech_site.inti.urls')),
-    path('tentang/', include('iqrotech_site.tentang.urls'))
+    path('iqrotech_site/hero/', include('iqrotech_site.hero.urls')),
+    path('iqrotech_site/langkah/', include('iqrotech_site.langkah.urls')),
+    path('iqrotech_site/inti/', include('iqrotech_site.inti.urls')),
+    path('iqrotech_site/tentang/', include('iqrotech_site.tentang.urls'))
 ]

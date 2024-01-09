@@ -2,4 +2,4 @@ from django.shortcuts import render
 
 # Create your views here.
 def index(request):
-    return render(request, 'hero/hero.html')
+    return render(request, 'iqrotech_site/hero/hero.html')
