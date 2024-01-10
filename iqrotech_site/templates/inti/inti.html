@@ -501,25 +501,25 @@
 
   //   console.log('Matriks dengan perhitungan jarak Levenshtein:');
 
-  //   // Mengisi matriks dengan perhitungan jarak Levenshtein
-  //   for (let i = 1; i <= m; i++) {
-  //     for (let j = 1; j <= n; j++) {
-  //       if (bacaanAsli[i - 1] === bacaanPengguna[j - 1]) {
-  //         dp[i][j] = dp[i - 1][j - 1];
-  //       } else {
-  //         dp[i][j] = 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
-  //       }
-  //     }
-  //   }
+    // // Mengisi matriks dengan perhitungan jarak Levenshtein
+    // for (let i = 1; i <= m; i++) {
+    //   for (let j = 1; j <= n; j++) {
+    //     if (bacaanAsli[i - 1] === bacaanPengguna[j - 1]) {
+    //       dp[i][j] = dp[i - 1][j - 1];
+    //     } else {
+    //       dp[i][j] = 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
+    //     }
+    //   }
+    // }
 
-  //   // Tampilkan matriks
-  //   for (let i = 0; i <= m; i++) {
-  //     let row = '';
-  //     for (let j = 0; j <= n; j++) {
-  //       row += dp[i][j] + '\t';
-  //     }
-  //     console.log(row);
-  //   }
+    // // Tampilkan matriks
+    // for (let i = 0; i <= m; i++) {
+    //   let row = '';
+    //   for (let j = 0; j <= n; j++) {
+    //     row += dp[i][j] + '\t';
+    //   }
+    //   console.log(row);
+    // }
 
   //   console.log('----------');
   //   console.log('Hasil jumlah kesalahan:', dp[m][n]);
@@ -573,39 +573,27 @@
     console.log(header);
 
     // Mengisi matriks dengan perhitungan jarak Levenshtein
-    for (let i = 0; i <= m; i++) {
-      let row = `${i === 0 ? " " : arabAPI[i - 1]}\t`;
-
-      for (let j = 0; j <= n; j++) {
-        if (i === 0 && j === 0) {
-          row += "0\t";
-          continue;
+    for (let i = 1; i <= m; i++) {
+          for (let j = 1; j <= n; j++) {
+            if (teksArabAlQuran[i - 1] === teksDenganDiacritics[j - 1]) {
+              dp[i][j] = dp[i - 1][j - 1];
+            } else {
+              dp[i][j] =
+                1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
+            }
+          }
         }
 
-        if (i === 0) {
-          row += `${j}\t`;
-          continue;
+        // Tampilkan matriks
+        for (let i = 0; i <= m; i++) {
+          let row = "";
+          for (let j = 0; j <= n; j++) {
+            row += dp[i][j] + "\t";
+          }
+          console.log(row);
         }
 
-        if (j === 0) {
-          row += `${i}\t`;
-          continue;
-        }
-
-        if (arabAPI[i - 1] === teksPengguna[j - 1]) {
-          dp[i][j] = dp[i - 1][j - 1];
-        } else {
-          dp[i][j] = 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
-        }
-        row += `${dp[i][j]}\t`;
-      }
-      console.log(row);
-    }
-
-    console.log("----------");
-
-    // Menghitung jumlah kesalahan
-    const jumlahKesalahan = dp[m][n] - 1;
+        const jumlahKesalahan = dp[m][n];
     return jumlahKesalahan;
   }
 
