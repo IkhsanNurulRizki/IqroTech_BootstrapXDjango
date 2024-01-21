@@ -454,7 +454,7 @@
     if (confirmNotifikasi) {
       if (isFirstUsage) {
         btnRekomendasiSuara.style.display = "block";
-        isFirstUsage = false; // Setelah penggunaan pertama, atur flag menjadi false
+        isFirstUsage = false;
       }
 
       //menampilkan button dengarkan bacaan
@@ -613,7 +613,6 @@
           );
 
           if (selectedAyatData && selectedAyatData.audio) {
-            // Gantilah "05" dengan yang sesuai dengan kebutuhan Anda
             const audioUrl = selectedAyatData.audio["05"];
             if (audioUrl) {
               audioPlayer.src = audioUrl;
